@@ -1154,6 +1154,126 @@
       padding: var(--space-1) 0 !important;
     }
 
+    /* ── ZOHO FLOAT NEUTRALIZATION ──────────────────────────────────
+       Zoho usa float:left en columnas. Lo forzamos a block/flex
+       para que nuestro layout responsive funcione correctamente. */
+    .zcwf_lblLeft .zcwf_col_lab {
+      float: none !important;
+      width: 100% !important;
+      margin-right: 0 !important;
+      margin-top: 0 !important;
+    }
+    .zcwf_lblLeft .zcwf_col_fld {
+      float: none !important;
+      width: 100% !important;
+      margin-top: 0 !important;
+      padding: 0 !important;
+    }
+    /* Selects (Zoho usa clase propia zcwf_col_fld_slt) */
+    .zcwf_col_fld_slt,
+    .zcwf_lblLeft .zcwf_col_fld select {
+      width: 100% !important;
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-sm) !important;
+      color: var(--color-negro) !important;
+      background: var(--color-blanco) !important;
+      border: var(--border-thin) !important;
+      border-radius: var(--radius) !important;
+      padding: 0.75rem 1rem !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      cursor: pointer !important;
+    }
+    /* Inputs de texto — override float y width de Zoho */
+    .zcwf_lblLeft .zcwf_col_fld input[type=text],
+    .zcwf_lblLeft .zcwf_col_fld input[type=email],
+    .zcwf_lblLeft .zcwf_col_fld input[type=tel],
+    .zcwf_lblLeft .zcwf_col_fld input[type=password] {
+      float: none !important;
+      width: 100% !important;
+      border-radius: 0 !important;
+    }
+
+    /* ── SUBMIT BUTTON — override completo del gradiente de Zoho ─── */
+    input#formsubmit.formsubmit.zcwf_button,
+    .zcwf_lblLeft .formsubmit.zcwf_button,
+    .formsubmit.zcwf_button {
+      background: var(--color-azul) !important;
+      background-image: none !important;       /* anula el linear-gradient de Zoho */
+      border: 1px solid var(--color-azul) !important;
+      border-radius: 0 !important;
+      color: var(--color-blanco) !important;
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-xs) !important;
+      font-weight: var(--fw-bold) !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      padding: 14px 32px !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
+      white-space: normal !important;
+      cursor: pointer !important;
+      margin-top: var(--space-3) !important;
+      box-shadow: none !important;
+    }
+    .formsubmit.zcwf_button:hover {
+      background: var(--color-azul-hover) !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+    .formsubmit.zcwf_button[disabled] {
+      opacity: 0.65 !important;
+      cursor: not-allowed !important;
+    }
+
+    /* ── RESET BUTTON — ocultar, no es necesario en B2B ─────────── */
+    .zcwf_button[name="reset"],
+    input[type="reset"].zcwf_button {
+      display: none !important;
+    }
+
+    /* ── CHECKBOX WHATSAPP — layout horizontal + estilo limpio ───── */
+    .zcwf_row:has(.zcwf_ckbox) {
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: var(--space-3) !important;
+      padding: var(--space-3) var(--space-4) !important;
+      background: rgba(44,95,74,0.05) !important;
+      border: 1px solid rgba(44,95,74,0.2) !important;
+      cursor: pointer;
+    }
+    .zcwf_row:has(.zcwf_ckbox) .zcwf_col_fld {
+      width: auto !important;
+      flex: 0 0 auto !important;
+      padding: 0 !important;
+    }
+    .zcwf_row:has(.zcwf_ckbox) .zcwf_col_lab {
+      width: auto !important;
+      flex: 1 !important;
+      margin: 0 !important;
+    }
+    .zcwf_ckbox {
+      width: 18px !important;
+      height: 18px !important;
+      float: none !important;
+      cursor: pointer !important;
+      accent-color: var(--color-verde) !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* ── CONTAINER PADDING — evitar doble padding con lead-form ──── */
+    #crmWebToEntityForm.zcwf_lblLeft { padding: 0 !important; }
+
+    /* ── ESTILO BASE INTERNO del form de Zoho ─────────────────────
+       La etiqueta style="" inline del div raíz se neutraliza aquí */
+    div#crmWebToEntityForm {
+      background-color: transparent !important;
+      max-width: 100% !important;
+      color: var(--color-negro) !important;
+    }
+
     /* Placeholder para cuando aún no se ha pegado el código Zoho */
     .zoho-pending {
       display: flex;
@@ -1880,19 +2000,249 @@
                    ═══════════════════════════════════════════════════════ -->
 
               <div id="zoho-form-zone">
-                <!-- ─── PLACEHOLDER ───────────────────────────────────
-                     Reemplaza este bloque con tu código de Zoho CRM.
-                     ─────────────────────────────────────────────────── -->
-                <div class="zoho-pending" role="status">
-                  <svg class="zoho-pending__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-                  </svg>
-                  <p class="zoho-pending__title">Formulario Zoho CRM</p>
-                  <p class="zoho-pending__body">
-                    Configura los ajustes en Zoho (ver instrucciones en comentarios), obtén el código y pégalo aquí.
-                  </p>
-                  <span class="zoho-pending__badge">Pendiente de configuración</span>
-                </div>
+              <!-- ─── ZOHO CRM WEB FORM ────────────────────────────
+                   Código generado por Zoho CRM → Web Forms
+                   Lead Source preseleccionado: Landing Page(s)
+                   El JS de la página agrega target="zoho-hidden-frame"
+                   automáticamente al detectar este form.
+                   ─────────────────────────────────────────────────── -->
+              <div id='crmWebToEntityForm' class='zcwf_lblLeft crmWebToEntityForm'>
+                <form id='webform4313719000096583001'
+                      action='https://crm.zoho.com/crm/WebToLeadForm'
+                      name='WebToLeads4313719000096583001'
+                      method='POST'
+                      onSubmit='javascript:document.charset="UTF-8"; return checkMandatory4313719000096583001()'
+                      accept-charset='UTF-8'>
+
+                  <!-- Tokens de seguridad Zoho — no modificar -->
+                  <input type='text' style='display:none;' name='xnQsjsdp' value='88078d13838efc34053fafd5b460554e022d0328f2ba28e6dee5e9f51433c1cc'>
+                  <input type='hidden' name='zc_gad' id='zc_gad' value=''>
+                  <input type='text' style='display:none;' name='xmIwtLD' value='ff125535131802b405be5c75734884ad40b64cdfe640a02f0a869c09758a2eac01cbf9563e3f24173cc0d865a2199642'>
+                  <input type='text' style='display:none;' name='actionType' value='TGVhZHM='>
+                  <input type='text' style='display:none;' name='returnURL' value='https://landing.omniaex.com/'>
+                  <input type='text' style='display:none;' name='aG9uZXlwb3Q' value=''>
+
+                  <!-- Nombre -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='First_Name'>Nombre <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' id='First_Name' aria-required='true' aria-label='First Name' name='First Name' maxlength='40' placeholder='Dr. / Dra.'>
+                    </div>
+                  </div>
+
+                  <!-- Apellidos -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='Last_Name'>Apellidos <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' maxlength='80' placeholder='Apellidos'>
+                    </div>
+                  </div>
+
+                  <!-- Correo -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='Email'>Correo electrónico <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' ftype='email' autocomplete='false' id='Email' aria-required='true' aria-label='Email' name='Email' maxlength='100' placeholder='correo@empresa.mx'>
+                    </div>
+                  </div>
+
+                  <!-- Móvil -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='Mobile'>Teléfono / Móvil <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' id='Mobile' aria-required='true' aria-label='Mobile' name='Mobile' maxlength='30' placeholder='55 0000 0000'>
+                    </div>
+                  </div>
+
+                  <!-- Empresa -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='Company'>Empresa / Clínica / Farmacia <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' id='Company' aria-required='true' aria-label='Company' name='Company' maxlength='200' placeholder='Nombre del establecimiento'>
+                    </div>
+                  </div>
+
+                  <!-- Puesto -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='LEADCF9'>Puesto <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <select class='zcwf_col_fld_slt' id='LEADCF9' onChange='addAriaSelected4313719000096583001()' aria-required='true' aria-label='LEADCF9' name='LEADCF9'>
+                        <option value='-None-'>Selecciona una opción</option>
+                        <option value='Médico'>Médico</option>
+                        <option value='Dermo consultora'>Dermo consultora</option>
+                        <option value='Cosmeatra'>Cosmeatra</option>
+                        <option value='Directivo'>Directivo</option>
+                        <option value='Administrativo'>Administrativo</option>
+                        <option value='Asistente'>Asistente</option>
+                        <option value='Compras'>Compras</option>
+                        <option value='Almacén'>Almacén</option>
+                        <option value='Otro'>Otro</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Profesión -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='LEADCF1'>Profesión <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <select class='zcwf_col_fld_slt' id='LEADCF1' onChange='addAriaSelected4313719000096583001()' aria-required='true' aria-label='LEADCF1' name='LEADCF1'>
+                        <option value='-None-'>Selecciona una opción</option>
+                        <option value='Dermatología1'>Dermatología</option>
+                        <option value='Medicina Estética'>Medicina Estética</option>
+                        <option value='Medicina General'>Medicina General</option>
+                        <option value='Cosmetologia'>Cosmetología</option>
+                        <option value='Cosmiatría'>Cosmiatría</option>
+                        <option value='Particular relacionado al cuidado de la piel'>Especialista en cuidado de piel</option>
+                        <option value='Otro'>Otro</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Tipo de Persona -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='LEADCF8'>Tipo de establecimiento <span style='color:var(--color-dorado)'>*</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <select class='zcwf_col_fld_slt' id='LEADCF8' onChange='addAriaSelected4313719000096583001()' aria-required='true' aria-label='LEADCF8' name='LEADCF8'>
+                        <option value='-None-'>Selecciona una opción</option>
+                        <option value='Persona Física'>Persona Física (médico independiente)</option>
+                        <option value='Persona Moral'>Persona Moral (empresa / clínica)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Sitio web (opcional) -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'>
+                      <label for='Website'>Sitio web <span style='font-weight:400;color:var(--color-gris-texto)'>(opcional)</span></label>
+                    </div>
+                    <div class='zcwf_col_fld'>
+                      <input type='text' id='Website' aria-required='false' aria-label='Website' name='Website' maxlength='255' placeholder='https://'>
+                    </div>
+                  </div>
+
+                  <!-- WhatsApp opt-in (checkbox requerido por CRM) -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_fld'>
+                      <input type='checkbox' class='zcwf_ckbox' id='LEADCF106' aria-required='true' aria-label='LEADCF106' name='LEADCF106' onclick='addAriaChecked4313719000096583001()'>
+                    </div>
+                    <div class='zcwf_col_lab'>
+                      <label for='LEADCF106' style='cursor:pointer;text-transform:none;letter-spacing:0;font-size:var(--text-xs);'>
+                        Acepto recibir contacto por WhatsApp <span style='color:var(--color-dorado)'>*</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Lead Source — oculto, preseleccionado Landing Page -->
+                  <div class='zcwf_row wfrm_fld_dpNn' style='display:none;'>
+                    <div class='zcwf_col_lab'><label for='Lead_Source'>Fuente</label></div>
+                    <div class='zcwf_col_fld'>
+                      <select class='zcwf_col_fld_slt' id='Lead_Source' aria-label='Lead Source' name='Lead Source'>
+                        <option value='-None-'>-None-</option>
+                        <option value='Campaña de Linked In'>Campaña de Linked In</option>
+                        <option value='Campaña de Meta (Facebook e Instagram)'>Campaña de Meta</option>
+                        <option value='Landing Page(s)' selected>Landing Page(s)</option>
+                        <option value='Facebook'>Facebook</option>
+                        <option value='Google AdWords'>Google AdWords</option>
+                        <option value='Instagram'>Instagram</option>
+                        <option value='Whatsapp'>Whatsapp</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Submit -->
+                  <div class='zcwf_row'>
+                    <div class='zcwf_col_lab'></div>
+                    <div class='zcwf_col_fld'>
+                      <input type='submit' id='formsubmit' role='button'
+                             class='formsubmit zcwf_button'
+                             value='SOLICITAR INFORMACIÓN DE CANAL'
+                             aria-label='Solicitar información de canal'>
+                      <!-- Reset button eliminado intencionalmente — mala UX en B2B -->
+                    </div>
+                  </div>
+
+                  <!-- Scripts de Zoho — no modificar -->
+                  <script>
+                    function addAriaChecked4313719000096583001(){
+                      var checkboxElem = event.target;
+                      if(checkboxElem && checkboxElem.checked){ checkboxElem.ariaChecked='true'; }
+                      else if(checkboxElem){ checkboxElem.ariaChecked='false'; }
+                    }
+                    function addAriaSelected4313719000096583001(){
+                      var optionElem = event.target;
+                      var prev = optionElem.querySelector('[aria-selected=true]');
+                      if(prev){ prev.removeAttribute('aria-selected'); }
+                      optionElem.querySelectorAll('option')[optionElem.selectedIndex].ariaSelected='true';
+                    }
+                    function validateEmail4313719000096583001(){
+                      var form = document.forms['WebToLeads4313719000096583001'];
+                      var emailFld = form.querySelectorAll('[ftype=email]');
+                      for(var i=0;i<emailFld.length;i++){
+                        var emailVal = emailFld[i].value;
+                        if((emailVal.replace(/^\s+|\s+$/g,'')).length!=0){
+                          var atpos=emailVal.indexOf('@');
+                          var dotpos=emailVal.lastIndexOf('.');
+                          if(atpos<1||dotpos<atpos+2||dotpos+2>=emailVal.length){
+                            alert('Introduce una dirección de correo válida.');
+                            emailFld[i].focus(); return false;
+                          }
+                        }
+                      }
+                      return true;
+                    }
+                    function checkMandatory4313719000096583001(isAjax){
+                      var mndFileds=new Array('Company','First Name','Last Name','Email','Mobile','LEADCF1','LEADCF106','LEADCF8','LEADCF9');
+                      var fldLangVal=new Array('Empresa','Nombre','Apellidos','Correo electrónico','Teléfono','Profesión','WhatsApp','Tipo de establecimiento','Puesto');
+                      for(var i=0;i<mndFileds.length;i++){
+                        var fieldObj=document.forms['WebToLeads4313719000096583001'][mndFileds[i]];
+                        if(fieldObj){
+                          if(((fieldObj.value).replace(/^\s+|\s+$/g,'')).length==0){
+                            if(fieldObj.type=='file'){ alert('Selecciona un archivo.'); fieldObj.focus(); return false; }
+                            alert(fldLangVal[i]+' no puede estar vacío.'); fieldObj.focus(); return false;
+                          } else if(fieldObj.nodeName=='SELECT'){
+                            if(fieldObj.options[fieldObj.selectedIndex].value=='-None-'){
+                              alert(fldLangVal[i]+' no puede quedar sin selección.'); fieldObj.focus(); return false;
+                            }
+                          } else if(fieldObj.type=='checkbox'){
+                            if(fieldObj.checked==false){ alert('Por favor acepta: '+fldLangVal[i]); fieldObj.focus(); return false; }
+                          }
+                          try{ if(fieldObj.name=='Last Name'){ name=fieldObj.value; } }catch(e){}
+                        }
+                      }
+                      if(!validateEmail4313719000096583001()){ return false; }
+                      var urlparams=new URLSearchParams(window.location.search);
+                      if(urlparams.has('service')&&(urlparams.get('service')==='smarturl')){
+                        var webform=document.getElementById('webform4313719000096583001');
+                        var s=document.createElement('input');
+                        s.setAttribute('type','hidden'); s.setAttribute('value',urlparams.get('service')); s.setAttribute('name','service');
+                        webform.appendChild(s);
+                      }
+                      document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled',true);
+                    }
+                  </script>
+
+                  <!-- Analytics Tracking — no eliminar -->
+                  <script id='wf_anal' src='https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=c9af37a392b34a43271b41e863983adcfb22e959c624b7efb7cc496331d0b173ae02530037af7d4a7c485f2776c7bb01gidefa9f3e8ba61e3dfcf8fb4745cfd7fa658914ce341329549679e0d77d8e138f4gid8e9fbb630778e7c3cdce4243f946ed8b254a4140146097b5663fa6bc7924f4d2gid07717d7d338e51b2ae2871a45176b1a88c286bc31fc62ffebf8def853c128408&tw=6730f14ebae3e3f14622126ee112263c3bb5249c13111f7f22e3e5230d000e27'></script>
+
+                </form>
+              </div>
+              <!-- ─── FIN ZOHO CRM WEB FORM ──────────────────────────── -->
               </div>
 
             </div>
