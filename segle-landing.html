@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SEGLE Biotech Skincare — Laboratorio español de I+D+I. Cosmética biotecnológica de alta gama para el canal dermatológico especializado en México.">
+  <title>SEGLE Clinical México — Canal Especializado</title>
+
+  <!-- Google Fonts — Montserrat (marca) + Cormorant Garamond (display B2B) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       SEGLE Clinical México — Landing Page
+       Tokens: SEGLE_Web_Brand_Kit_Mexico.md
+       References: REF_Valecol.md (structure), REF_Odella.md (components)
+       ================================================================ */
+
+    /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+    :root {
+      /* Colores base */
+      --color-negro:        #111111;
+      --color-blanco:       #FFFFFF;
+      --color-crema:        #F5F2EC;
+
+      /* Acentos clínicos */
+      --color-azul:         #0D1B3E;
+      --color-azul-medio:   #1E3A5F;
+      --color-verde:        #2C5F4A;
+
+      /* Apoyo */
+      --color-dorado:       #C9A84C;
+      --color-gris-texto:   #6B6B6B;
+      --color-gris-linea:   #E8E6E1;
+      --color-gris-fondo:   #F0EDE8;
+
+      /* Estados interactivos */
+      --color-azul-hover:   #152850;
+      --color-verde-hover:  #234D3B;
+      --color-foco:         #C9A84C;
+
+      /* Tipografía */
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-brand:   'Montserrat', sans-serif;
+
+      /* Escala tipográfica */
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-md:   1.125rem;
+      --text-lg:   1.25rem;
+      --text-xl:   1.5rem;
+      --text-2xl:  2rem;
+      --text-3xl:  2.75rem;
+      --text-4xl:  3.5rem;
+
+      /* Pesos */
+      --fw-regular:  400;
+      --fw-medium:   500;
+      --fw-bold:     700;
+
+      /* Line-height */
+      --lh-tight:   1.15;
+      --lh-heading: 1.3;
+      --lh-body:    1.65;
+
+      /* Letter-spacing */
+      --ls-tight:  -0.02em;
+      --ls-wide:    0.06em;
+      --ls-wider:   0.12em;
+
+      /* Espaciado (base 8px) */
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-5:  1.5rem;
+      --space-6:  2rem;
+      --space-7:  2.5rem;
+      --space-8:  3rem;
+      --space-10: 4rem;
+      --space-12: 5rem;
+      --space-16: 7rem;
+      --space-20: 9rem;
+
+      /* Layout */
+      --max-width:   1200px;
+      --page-pad:    clamp(1.25rem, 5vw, 5rem);
+
+      /* Bordes */
+      --border-thin:   1px solid var(--color-gris-linea);
+      --border-mid:    1px solid var(--color-azul);
+      --border-dorado: 1px solid var(--color-dorado);
+      --radius: 0px; /* ABSOLUTE — no border-radius en marca SEGLE */
+
+      /* Transiciones */
+      --t-fast: 150ms ease;
+      --t-base: 250ms ease;
+    }
+
+    /* ── RESET ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img, svg { display: block; max-width: 100%; }
+    button, input, select, textarea { font-family: inherit; }
+
+    body {
+      font-family: var(--font-brand);
+      font-size: var(--text-base);
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-body);
+      color: var(--color-negro);
+      background: var(--color-blanco);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── ACCESSIBILITY ─────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; left: -9999px; top: auto;
+      font-size: var(--text-sm); padding: var(--space-2) var(--space-4);
+      background: var(--color-azul); color: var(--color-blanco);
+      z-index: 9999; text-decoration: none;
+    }
+    .skip-link:focus { left: var(--space-4); top: var(--space-4); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-foco);
+      outline-offset: 3px;
+    }
+
+    /* ── SHARED PATTERNS ───────────────────────────────────────────── */
+
+    /* Section label — adopted from SEGLE Spain "/ Sección" pattern */
+    .section-label {
+      display: block;
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: var(--color-gris-texto);
+      margin-bottom: var(--space-4);
+    }
+    .section-label::before { content: "/ "; color: var(--color-dorado); }
+    .section-label--light { color: rgba(255,255,255,0.45); }
+    .section-label--light::before { color: var(--color-dorado); }
+
+    /* Buttons — azul + dorado — NEVER border-radius */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      transition: background-color var(--t-base), color var(--t-base), border-color var(--t-base);
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--color-dorado);
+      color: var(--color-blanco);
+      border: 1px solid var(--color-dorado);
+    }
+    .btn-primary:hover { background: transparent; color: var(--color-dorado); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-blanco);
+      border: 1px solid rgba(255,255,255,0.38);
+    }
+    .btn-ghost:hover { border-color: var(--color-blanco); background: rgba(255,255,255,0.05); }
+
+    .btn-navy {
+      background: var(--color-azul);
+      color: var(--color-blanco);
+      border: 1px solid var(--color-azul);
+    }
+    .btn-navy:hover { background: var(--color-azul-hover); }
+
+    /* Section container */
+    .section {
+      padding: var(--space-16) var(--page-pad);
+    }
+    .section__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .section--crema { background: var(--color-crema); }
+    .section--azul  { background: var(--color-azul); }
+
+    /* Gold horizontal rule */
+    .rule-dorado {
+      border: none;
+      border-top: 1px solid var(--color-dorado);
+      margin: var(--space-7) 0;
+    }
+
+    /* ── SCROLL ANIMATION ──────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s cubic-bezier(.25,.46,.45,.94),
+                  transform 0.55s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+
+    /* ================================================================
+       NAV
+       Valecol: sticky, wordmark + UPPERCASE links + bordered B2B item
+       ================================================================ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--color-blanco);
+      border-bottom: var(--border-thin);
+      transition: box-shadow var(--t-fast);
+    }
+    .nav.is-scrolled { box-shadow: 0 1px 16px rgba(13,27,62,0.07); }
+
+    .nav__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-3) var(--page-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+
+    .nav__logo-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav__logo-img {
+      height: 36px;
+      width: auto;
+      /* invert to navy: filter trick for white-bg logo */
+    }
+    .nav__logo-sep {
+      width: 1px;
+      height: 28px;
+      background: var(--color-gris-linea);
+    }
+    .nav__logo-sub {
+      font-family: var(--font-brand);
+      font-size: 0.6rem;
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: var(--color-gris-texto);
+      line-height: 1.35;
+    }
+
+    .nav__links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-7);
+    }
+    .nav__links a {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: var(--color-negro);
+      text-decoration: none;
+      transition: color var(--t-fast);
+    }
+    .nav__links a:hover { color: var(--color-azul); }
+
+    /* Bordered B2B item — Valecol pattern */
+    .nav__links .nav__b2b {
+      border: var(--border-mid);
+      padding: 0.45rem 1.1rem;
+      color: var(--color-azul);
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    .nav__links .nav__b2b:hover {
+      background: var(--color-azul);
+      color: var(--color-blanco);
+    }
+
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-2);
+      color: var(--color-negro);
+    }
+
+    @media (max-width: 860px) {
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: var(--color-blanco);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-4) var(--page-pad);
+        border-bottom: var(--border-thin);
+        gap: 0;
+      }
+      .nav__links.is-open { display: flex; }
+      .nav__links li { width: 100%; border-bottom: var(--border-thin); padding: var(--space-4) 0; }
+      .nav__links .nav__b2b { border: none; padding: 0; color: var(--color-azul); }
+      .nav__toggle { display: block; }
+    }
+
+    /* ================================================================
+       HERO
+       Odella (Skin Perfusion): dark, clinical, no lifestyle
+       Valecol: H1 large thin + stats below fold line
+       ================================================================ */
+    .hero {
+      background: var(--color-azul);
+      padding: clamp(4rem, 10vw, var(--space-20)) var(--page-pad) clamp(4rem, 8vw, var(--space-16));
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Geometric texture — gold line grid, very subtle */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Right column accent stripe */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 42%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.18), transparent);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+    .hero__eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--color-dorado);
+      flex-shrink: 0;
+    }
+    .hero__eyebrow-text {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: var(--color-dorado);
+    }
+
+    .hero__h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4.5vw, var(--text-4xl));
+      font-weight: 300;
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-blanco);
+      margin-bottom: var(--space-5);
+    }
+    .hero__h1 em {
+      font-style: italic;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .hero__sub {
+      font-size: var(--text-md);
+      line-height: var(--lh-body);
+      color: rgba(255,255,255,0.65);
+      margin-bottom: var(--space-7);
+      max-width: 460px;
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    /* Stats below CTA — Valecol-inspired stat row */
+    .hero__stats {
+      display: flex;
+      gap: var(--space-7);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      flex-wrap: wrap;
+    }
+    .hero__stat-value {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: var(--fw-regular);
+      color: var(--color-dorado);
+      line-height: 1;
+      display: block;
+    }
+    .hero__stat-label {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-regular);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: rgba(255,255,255,0.4);
+      margin-top: var(--space-2);
+      display: block;
+    }
+
+    /* Right column — product visual */
+    .hero__visual {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .hero__product-frame {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 3/4;
+      border: var(--border-dorado);
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-5);
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Corner accent marks */
+    .hero__product-frame::before,
+    .hero__product-frame::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--color-dorado);
+      border-style: solid;
+    }
+    .hero__product-frame::before {
+      top: -1px; left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+    .hero__product-frame::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .hero__product-svg { opacity: 0.85; }
+    .hero__product-caption {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .hero__inner { grid-template-columns: 1fr; }
+      .hero__visual { display: none; }
+      .hero::after { display: none; }
+      .hero__sub { max-width: 100%; }
+    }
+
+    /* ================================================================
+       TRUST BAR
+       Adopted from Valecol horizontal attribute strip
+       ================================================================ */
+    .trust-bar {
+      background: var(--color-crema);
+      border-bottom: var(--border-thin);
+      padding: var(--space-4) var(--page-pad);
+    }
+    .trust-bar__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+    .trust-bar__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex: 1;
+      min-width: 160px;
+    }
+    .trust-bar__icon { color: var(--color-dorado); flex-shrink: 0; }
+    .trust-bar__text {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-negro);
+    }
+    .trust-bar__sep {
+      width: 1px; height: 20px;
+      background: var(--color-gris-linea);
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) { .trust-bar__sep { display: none; } }
+
+    /* ================================================================
+       IDENTIDAD
+       2-column: text left / lab visual right
+       ================================================================ */
+    .identidad__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .identidad__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-azul);
+      margin-bottom: var(--space-5);
+    }
+
+    .identidad__body {
+      font-size: var(--text-base);
+      line-height: var(--lh-body);
+      color: var(--color-gris-texto);
+      margin-bottom: var(--space-4);
+    }
+    .identidad__body strong { color: var(--color-negro); font-weight: var(--fw-medium); }
+
+    .identidad__badges {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-top: var(--space-5);
+    }
+    .identidad__badge {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-verde);
+      border: 1px solid var(--color-verde);
+      padding: 0.35rem 0.8rem;
+    }
+
+    /* Lab visual — clinical image placeholder */
+    .identidad__visual {
+      background: var(--color-gris-fondo);
+      border: var(--border-thin);
+      aspect-ratio: 4/5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      padding: var(--space-8);
+      position: relative;
+    }
+    .identidad__visual::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--color-dorado);
+    }
+    .identidad__visual-caption {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: var(--color-gris-texto);
+      font-weight: var(--fw-bold);
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .identidad__grid { grid-template-columns: 1fr; }
+      .identidad__visual { aspect-ratio: 16/9; max-height: 280px; }
+    }
+
+    /* ================================================================
+       BENEFICIOS
+       Odella pattern: 2x2 grid, outline icons, dark navy background
+       ================================================================ */
+    .beneficios__header { margin-bottom: var(--space-10); }
+
+    .beneficios__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-blanco);
+      max-width: 560px;
+    }
+
+    .beneficios__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .beneficio-card {
+      background: var(--color-azul);
+      padding: var(--space-8) var(--space-7);
+      transition: background var(--t-base);
+    }
+    .beneficio-card:hover { background: var(--color-azul-medio); }
+
+    .beneficio-card__icon-box {
+      width: 44px; height: 44px;
+      border: 1px solid var(--color-dorado);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-dorado);
+      margin-bottom: var(--space-5);
+      flex-shrink: 0;
+    }
+
+    .beneficio-card__title {
+      font-family: var(--font-brand);
+      font-size: var(--text-sm);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-blanco);
+      margin-bottom: var(--space-3);
+    }
+
+    .beneficio-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.58);
+    }
+
+    @media (max-width: 600px) { .beneficios__grid { grid-template-columns: 1fr; } }
+
+    /* ================================================================
+       PORTAFOLIO
+       4 protocol cards in horizontal row with number + products
+       ================================================================ */
+    .portafolio__header { margin-bottom: var(--space-8); }
+
+    .portafolio__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-azul);
+      margin-bottom: var(--space-3);
+    }
+
+    .portafolio__intro {
+      font-size: var(--text-md);
+      color: var(--color-gris-texto);
+      max-width: 560px;
+      line-height: var(--lh-body);
+    }
+
+    .portafolio__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: var(--border-thin);
+    }
+
+    .protocolo-card {
+      padding: var(--space-7) var(--space-5);
+      border-right: var(--border-thin);
+      position: relative;
+      overflow: hidden;
+      transition: background var(--t-base);
+    }
+    .protocolo-card:last-child { border-right: none; }
+
+    /* Bottom gold bar on hover */
+    .protocolo-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-dorado);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--t-base);
+    }
+    .protocolo-card:hover { background: var(--color-crema); }
+    .protocolo-card:hover::after { transform: scaleX(1); }
+
+    .protocolo-card__num {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 5vw, var(--text-4xl));
+      font-weight: 300;
+      color: var(--color-gris-linea);
+      line-height: 1;
+      margin-bottom: var(--space-4);
+    }
+
+    .protocolo-card__title {
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-azul);
+      margin-bottom: var(--space-3);
+    }
+
+    .protocolo-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.65;
+      color: var(--color-gris-texto);
+      margin-bottom: var(--space-4);
+    }
+
+    .protocolo-card__skus {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .protocolo-card__skus li {
+      font-size: var(--text-xs);
+      color: var(--color-gris-texto);
+      padding-left: var(--space-3);
+      border-left: 2px solid var(--color-dorado);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .portafolio__grid { grid-template-columns: 1fr 1fr; }
+      .protocolo-card { border-bottom: var(--border-thin); }
+      .protocolo-card:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 480px) {
+      .portafolio__grid { grid-template-columns: 1fr; }
+      .protocolo-card { border-right: none; }
+    }
+
+    /* ================================================================
+       TABLA COMPARATIVA
+       Brand book: SEGLE column highlighted — readable at a glance
+       ================================================================ */
+    .posicion__header { margin-bottom: var(--space-8); }
+
+    .posicion__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-blanco);
+      margin-bottom: var(--space-3);
+    }
+
+    .posicion__sub {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.55);
+      line-height: var(--lh-body);
+      max-width: 520px;
+    }
+
+    .comp-table-wrap { overflow-x: auto; }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid rgba(255,255,255,0.1);
+      min-width: 600px;
+    }
+
+    .comp-table th {
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.5);
+      vertical-align: bottom;
+    }
+    .comp-table th small {
+      display: block;
+      font-weight: var(--fw-regular);
+      font-size: 0.7rem;
+      letter-spacing: 0;
+      text-transform: none;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+    .comp-table th.col-segle {
+      color: var(--color-dorado);
+      border-bottom-color: var(--color-dorado);
+    }
+
+    .comp-table td {
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+    }
+    .comp-table td:first-child {
+      font-weight: var(--fw-medium);
+      color: rgba(255,255,255,0.8);
+    }
+    .comp-table td.col-segle {
+      color: var(--color-blanco);
+      font-weight: var(--fw-medium);
+      background: rgba(201,168,76,0.07);
+      border-left: 2px solid var(--color-dorado);
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+
+    /* ================================================================
+       FORMULARIO
+       Odella pattern: 2-col, form right, B2B gate, navy submit
+       ================================================================ */
+    .form-section { background: var(--color-blanco); }
+
+    .form__grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--space-12);
+      align-items: start;
+    }
+
+    /* Left: intro */
+    .form__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-azul);
+      margin-bottom: var(--space-5);
+    }
+
+    .form__intro {
+      font-size: var(--text-base);
+      line-height: var(--lh-body);
+      color: var(--color-gris-texto);
+      margin-bottom: var(--space-6);
+    }
+
+    .form__info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      border-top: var(--border-dorado);
+      padding-top: var(--space-5);
+    }
+    .form__info-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-gris-texto);
+    }
+    .form__info-item svg { color: var(--color-dorado); flex-shrink: 0; }
+
+    /* Right: form card */
+    .lead-form {
+      background: var(--color-crema);
+      border: var(--border-thin);
+      padding: var(--space-7);
+    }
+
+    /* B2B gate text — Odella pattern */
+    .form__gate {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-verde);
+      margin-bottom: var(--space-5);
+      padding-bottom: var(--space-4);
+      border-bottom: var(--border-dorado);
+    }
+
+    .form-group { margin-bottom: var(--space-4); }
+
+    .form-group label {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-negro);
+      margin-bottom: var(--space-2);
+    }
+    .form-group label .req {
+      color: var(--color-dorado);
+      margin-left: 2px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      font-size: var(--text-sm);
+      color: var(--color-negro);
+      background: var(--color-blanco);
+      border: var(--border-thin);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-azul);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    }
+    .form-group input.is-invalid,
+    .form-group select.is-invalid { border-color: #b33; }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='square'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .field-error {
+      display: none;
+      font-size: var(--text-xs);
+      color: #b33;
+      margin-top: var(--space-1);
+    }
+    .form-group.has-error .field-error { display: block; }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .form__submit {
+      width: 100%;
+      padding: 15px 32px;
+      margin-top: var(--space-3);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-blanco);
+      background: var(--color-azul);
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: background var(--t-base);
+    }
+    .form__submit:hover { background: var(--color-azul-hover); }
+    .form__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form__note {
+      font-size: var(--text-xs);
+      color: var(--color-gris-texto);
+      margin-top: var(--space-3);
+      line-height: 1.5;
+    }
+
+    /* Success state */
+    .form__success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-10) var(--space-5);
+      gap: var(--space-4);
+    }
+    .form__success.is-visible { display: flex; }
+
+    .success__icon {
+      width: 48px; height: 48px;
+      border: 1px solid var(--color-verde);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-verde);
+    }
+    .success__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: var(--fw-regular);
+      color: var(--color-azul);
+    }
+    .success__body { font-size: var(--text-sm); color: var(--color-gris-texto); line-height: 1.6; }
+
+    @media (max-width: 860px) {
+      .form__grid { grid-template-columns: 1fr; gap: var(--space-8); }
+    }
+    @media (max-width: 480px) {
+      .form-row-2 { grid-template-columns: 1fr; }
+      .lead-form { padding: var(--space-5); }
+    }
+
+    /* ================================================================
+       ZOHO CRM WEB FORM — Brand overrides
+       Neutraliza estilos default de Zoho y aplica tokens SEGLE.
+       Funciona sobre el HTML que genera Zoho CRM → Web Forms.
+       ================================================================ */
+
+    /* Contenedor raíz que genera Zoho */
+    #crmWebToEntityForm,
+    .zcwf_lblLeft {
+      background: transparent !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+      border: none !important;
+      font-family: var(--font-brand) !important;
+    }
+
+    /* Ocultar el título interno de Zoho (usamos nuestro gate) */
+    .zcwf_title { display: none !important; }
+
+    /* Filas del formulario */
+    .zcwf_row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--space-4) !important;
+      gap: var(--space-2);
+    }
+
+    /* Labels */
+    .zcwf_col_lab,
+    .zcwf_col_lab label {
+      width: 100% !important;
+      text-align: left !important;
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-xs) !important;
+      font-weight: var(--fw-bold) !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: var(--color-negro) !important;
+      padding: 0 !important;
+    }
+
+    /* Campos */
+    .zcwf_col_fld { width: 100% !important; }
+
+    .zcwf_col_fld input[type="text"],
+    .zcwf_col_fld input[type="email"],
+    .zcwf_col_fld input[type="tel"],
+    .zcwf_col_fld input[type="number"],
+    .zcwf_col_fld input[type="url"],
+    .zcwf_col_fld select,
+    .zcwf_col_fld textarea {
+      width: 100% !important;
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-sm) !important;
+      color: var(--color-negro) !important;
+      background: var(--color-blanco) !important;
+      border: var(--border-thin) !important;
+      border-radius: var(--radius) !important;   /* 0px — regla absoluta */
+      padding: 0.75rem 1rem !important;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      transition: border-color var(--t-fast) !important;
+    }
+
+    .zcwf_col_fld input:focus,
+    .zcwf_col_fld select:focus,
+    .zcwf_col_fld textarea:focus {
+      border-color: var(--color-azul) !important;
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15) !important;
+    }
+
+    .zcwf_col_fld textarea {
+      min-height: 90px !important;
+      resize: vertical !important;
+    }
+
+    /* Botón submit de Zoho */
+    .zcwf_col_fld input[type="submit"],
+    .zcwf_col_fld button[type="submit"] {
+      width: 100% !important;
+      background: var(--color-azul) !important;
+      color: var(--color-blanco) !important;
+      border: none !important;
+      border-radius: var(--radius) !important;
+      padding: 15px 32px !important;
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-xs) !important;
+      font-weight: var(--fw-bold) !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      cursor: pointer !important;
+      transition: background var(--t-base) !important;
+      margin-top: var(--space-3) !important;
+    }
+    .zcwf_col_fld input[type="submit"]:hover {
+      background: var(--color-azul-hover) !important;
+    }
+
+    /* Mensajes de error de validación de Zoho */
+    .zcwf_tooltip_over,
+    .zcwf_error_msg {
+      font-family: var(--font-brand) !important;
+      font-size: var(--text-xs) !important;
+      color: #b33 !important;
+      background: none !important;
+      border: none !important;
+      padding: var(--space-1) 0 !important;
+    }
+
+    /* Placeholder para cuando aún no se ha pegado el código Zoho */
+    .zoho-pending {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      padding: var(--space-8) var(--space-5);
+      border: 2px dashed var(--color-gris-linea);
+      background: rgba(240,237,232,0.5);
+      text-align: center;
+      min-height: 240px;
+    }
+    .zoho-pending__icon { color: var(--color-dorado); }
+    .zoho-pending__title {
+      font-family: var(--font-brand);
+      font-size: var(--text-sm);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-azul);
+    }
+    .zoho-pending__body {
+      font-size: var(--text-xs);
+      color: var(--color-gris-texto);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+    .zoho-pending__badge {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-verde);
+      border: 1px solid var(--color-verde);
+      padding: 0.3rem 0.75rem;
+    }
+
+    /* ── ESTADO "GRACIAS" — inline, reemplaza el form al enviar ─── */
+    .form-thanks {
+      display: none;   /* JS cambia a flex cuando Zoho confirma el envío */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-12) var(--space-5);
+      gap: var(--space-5);
+      min-height: 340px;
+    }
+    .form-thanks.is-visible { display: flex; }
+
+    .form-thanks__check {
+      width: 52px; height: 52px;
+      border: 1px solid var(--color-verde);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-verde);
+      flex-shrink: 0;
+    }
+    .form-thanks__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: var(--fw-regular);
+      color: var(--color-azul);
+      line-height: var(--lh-heading);
+    }
+    .form-thanks__body {
+      font-size: var(--text-sm);
+      color: var(--color-gris-texto);
+      line-height: var(--lh-body);
+      max-width: 340px;
+    }
+    .form-thanks__wa {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #25D366;
+      text-decoration: none;
+      border: 1px solid #25D366;
+      padding: 0.6rem 1.2rem;
+      margin-top: var(--space-2);
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    .form-thanks__wa:hover { background: #25D366; color: #fff; }
+
+    /* ================================================================
+       WHATSAPP — Botón flotante
+       Posición: esquina inferior derecha
+       Sin border-radius (regla absoluta de marca SEGLE)
+       ================================================================ */
+    .wa-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: #25D366;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 12px 18px 12px 14px;
+      border-radius: var(--radius);   /* 0px — regla de marca */
+      box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      transition: background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+    }
+    .wa-fab:hover {
+      background: #128C7E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+    }
+    .wa-fab:focus-visible {
+      outline: 2px solid var(--color-foco);
+      outline-offset: 3px;
+    }
+    .wa-fab svg { flex-shrink: 0; }
+
+    /* Mobile: solo ícono */
+    @media (max-width: 500px) {
+      .wa-fab { padding: 13px; }
+      .wa-fab__label { display: none; }
+    }
+
+    /* ================================================================
+       FOOTER
+       Odella pattern: navy 4-col + COFEPRIS + copyright
+       ================================================================ */
+    .footer {
+      background: var(--color-azul);
+      padding: var(--space-12) var(--page-pad) var(--space-6);
+    }
+    .footer__inner { max-width: var(--max-width); margin: 0 auto; }
+
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: var(--space-8);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: var(--space-6);
+    }
+
+    .footer__wordmark {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: var(--fw-regular);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-blanco);
+      margin-bottom: var(--space-1);
+    }
+    .footer__tagline {
+      font-size: 0.62rem;
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wider);
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-bottom: var(--space-5);
+    }
+    .footer__brand-body {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .footer__col-title {
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-wide);
+      color: var(--color-dorado);
+      margin-bottom: var(--space-4);
+    }
+    .footer__nav-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer__nav-list a {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.48);
+      text-decoration: none;
+      transition: color var(--t-fast);
+    }
+    .footer__nav-list a:hover { color: var(--color-blanco); }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .footer__legal { font-size: var(--text-xs); color: rgba(255,255,255,0.3); }
+    .footer__cofepris { font-size: var(--text-xs); color: rgba(255,255,255,0.3); letter-spacing: 0.02em; }
+
+    @media (max-width: 860px) {
+      .footer__top { grid-template-columns: 1fr 1fr; gap: var(--space-7); }
+    }
+    @media (max-width: 480px) {
+      .footer__top { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#formulario">Ir al formulario de contacto</a>
+
+  <!-- ================================================================
+       NAV
+       ================================================================ -->
+  <nav class="nav" id="main-nav" role="navigation" aria-label="Navegación principal">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo-link" aria-label="SEGLE Clinical México — Inicio">
+        <img
+          class="nav__logo-img"
+          src="data:image/jpeg;base64,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"
+          alt="SEGLE Biotech Skincare"
+          width="90"
+          height="36"
+        >
+        <span class="nav__logo-sep" aria-hidden="true"></span>
+        <span class="nav__logo-sub">Clinical México<br>Canal Especializado</span>
+      </a>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="#identidad">Identidad</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#posicionamiento">Canal</a></li>
+        <li><a href="#formulario" class="nav__b2b">Solicitar información</a></li>
+      </ul>
+
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label="Abrir menú de navegación"
+      >
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
+          <line y1="1" x2="22" y2="1" stroke="currentColor" stroke-width="1.5"/>
+          <line y1="7" x2="22" y2="7" stroke="currentColor" stroke-width="1.5"/>
+          <line y1="13" x2="22" y2="13" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================================================================
+       HERO — dark navy, clinical, no lifestyle
+       ================================================================ -->
+  <section class="hero" id="inicio" aria-labelledby="hero-h1">
+    <div class="hero__inner">
+
+      <!-- Left: headline + CTAs + stats -->
+      <div class="hero__content">
+        <div class="hero__eyebrow" aria-hidden="true">
+          <span class="hero__eyebrow-dot"></span>
+          <span class="hero__eyebrow-text">Laboratorio Español · Canal Dermatológico México</span>
+        </div>
+
+        <h1 class="hero__h1" id="hero-h1">
+          Biotecnología clínica española<br>
+          <em>para el canal dermatológico</em>
+        </h1>
+
+        <p class="hero__sub">
+          Formulaciones farmacéuticas con activos biotecnológicos de alta concentración. Canal selectivo. Margen diferenciado. Soporte técnico activo.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#formulario" class="btn btn-primary">Solicitar información de canal</a>
+          <a href="#portafolio" class="btn btn-ghost">Ver portafolio</a>
+        </div>
+
+        <div class="hero__stats" aria-label="Indicadores clave de canal">
+          <div>
+            <span class="hero__stat-value">35–50%</span>
+            <span class="hero__stat-label">Margen canal</span>
+          </div>
+          <div>
+            <span class="hero__stat-value">4</span>
+            <span class="hero__stat-label">Protocolos clínicos</span>
+          </div>
+          <div>
+            <span class="hero__stat-value">I+D+I</span>
+            <span class="hero__stat-label">Origen Barcelona</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: product visual placeholder -->
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__product-frame">
+          <!-- Lab / molecule SVG — brand visual vocabulary: sea + science -->
+          <svg class="hero__product-svg" width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Flask outline -->
+            <path d="M60 30 L60 90 L18 168 L142 168 L100 90 L100 30 Z" stroke="rgba(201,168,76,0.5)" stroke-width="1" fill="none"/>
+            <line x1="48" y1="30" x2="112" y2="30" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
+            <!-- Liquid level -->
+            <path d="M32 150 L128 150" stroke="rgba(44,95,74,0.45)" stroke-width="0.8"/>
+            <path d="M25 160 L135 160" stroke="rgba(44,95,74,0.45)" stroke-width="0.8"/>
+            <!-- Liquid fill -->
+            <path d="M33 152 Q50 148 80 152 Q110 156 127 152 L135 162 L25 162 Z"
+                  fill="rgba(44,95,74,0.12)" stroke="none"/>
+            <!-- Bubbles / actives -->
+            <circle cx="70" cy="130" r="5" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
+            <circle cx="92" cy="118" r="3.5" stroke="rgba(201,168,76,0.3)" stroke-width="1" fill="none"/>
+            <circle cx="60" cy="142" r="2.5" stroke="rgba(201,168,76,0.3)" stroke-width="1" fill="none"/>
+            <circle cx="100" cy="138" r="4" stroke="rgba(201,168,76,0.25)" stroke-width="1" fill="none"/>
+            <!-- Molecule above -->
+            <circle cx="80" cy="14" r="5" stroke="rgba(201,168,76,0.55)" stroke-width="1" fill="none"/>
+            <circle cx="65" cy="22" r="3" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
+            <circle cx="96" cy="20" r="3.5" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
+            <line x1="75.5" y1="16.5" x2="67.5" y2="20" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
+            <line x1="84.5" y1="16.5" x2="93" y2="18.5" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
+            <!-- Vertical line connecting molecule to flask -->
+            <line x1="80" y1="19" x2="80" y2="30" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" stroke-dasharray="2 2"/>
+          </svg>
+          <span class="hero__product-caption">Fotografía de producto</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       TRUST BAR
+       ================================================================ -->
+  <div class="trust-bar" aria-label="Atributos clave de marca">
+    <div class="trust-bar__inner">
+
+      <div class="trust-bar__item">
+        <svg class="trust-bar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+        </svg>
+        <span class="trust-bar__text">Origen farmacéutico europeo</span>
+      </div>
+
+      <div class="trust-bar__sep" aria-hidden="true"></div>
+
+      <div class="trust-bar__item">
+        <svg class="trust-bar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+        </svg>
+        <span class="trust-bar__text">Biotecnología azul + verde</span>
+      </div>
+
+      <div class="trust-bar__sep" aria-hidden="true"></div>
+
+      <div class="trust-bar__item">
+        <svg class="trust-bar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span class="trust-bar__text">Alta concentración clínica</span>
+      </div>
+
+      <div class="trust-bar__sep" aria-hidden="true"></div>
+
+      <div class="trust-bar__item">
+        <svg class="trust-bar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        <span class="trust-bar__text">COFEPRIS registrado</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================
+       IDENTIDAD
+       ================================================================ -->
+  <section class="section" id="identidad" aria-labelledby="identidad-h2">
+    <div class="section__inner">
+      <div class="identidad__grid">
+
+        <div class="reveal">
+          <span class="section-label">Quiénes somos</span>
+          <h2 class="identidad__h2" id="identidad-h2">
+            Laboratorio español de I+D+I con estándares de industria farmacéutica
+          </h2>
+          <p class="identidad__body">
+            SEGLE Biotech Skincare nació en Barcelona dentro de la industria farmacéutica europea. No es una marca cosmética reconvertida — es <strong>cosmética formulada con metodología farmacéutica</strong>: ensayos de estabilidad formales, certificados de análisis por lote, concentraciones clínicamente relevantes.
+          </p>
+          <p class="identidad__body">
+            Los activos de nuestras fórmulas se obtienen mediante procesos biotecnológicos controlados —fermentación, cultivo celular, síntesis enzimática— que producen ingredientes de mayor pureza, mayor estabilidad y mayor biodisponibilidad que los obtenidos por extracción convencional.
+          </p>
+          <p class="identidad__body">
+            En México operamos a través de <strong>Segle Clinical México</strong>, con distribución selectiva en farmacias dermatológicas, clínicas y médicos de estética. No buscamos presencia masiva — buscamos socios que entiendan el producto.
+          </p>
+          <div class="identidad__badges" aria-label="Atributos de formulación">
+            <span class="identidad__badge">Sin parabenos</span>
+            <span class="identidad__badge">Cruelty free</span>
+            <span class="identidad__badge">Biotech azul + verde</span>
+            <span class="identidad__badge">Eco-sostenible</span>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2 identidad__visual" aria-label="Imagen de laboratorio — proceso biotecnológico">
+          <!-- Lab / petri dish SVG — brand vocabulary: science, no lifestyle -->
+          <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Outer petri dish -->
+            <ellipse cx="70" cy="80" rx="52" ry="15" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <ellipse cx="70" cy="70" rx="52" ry="15" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <line x1="18" y1="70" x2="18" y2="80" stroke="#C9A84C" stroke-width="1"/>
+            <line x1="122" y1="70" x2="122" y2="80" stroke="#C9A84C" stroke-width="1"/>
+            <!-- Culture fill -->
+            <ellipse cx="70" cy="70" rx="40" ry="10" fill="rgba(44,95,74,0.1)" stroke="none"/>
+            <ellipse cx="70" cy="70" rx="40" ry="10" stroke="#2C5F4A" stroke-width="0.8" fill="none" stroke-dasharray="3 3"/>
+            <!-- Colony dots -->
+            <circle cx="58" cy="68" r="4" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.15)"/>
+            <circle cx="74" cy="72" r="3" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
+            <circle cx="86" cy="66" r="3.5" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.12)"/>
+            <circle cx="65" cy="75" r="2" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
+            <circle cx="80" cy="62" r="2.5" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
+            <!-- Pipette -->
+            <line x1="100" y1="8" x2="100" y2="58" stroke="#C9A84C" stroke-width="1"/>
+            <rect x="96" y="4" width="8" height="8" rx="0" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <!-- Droplet -->
+            <path d="M100 60 Q97.5 67 100 72 Q102.5 67 100 60Z" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.18)"/>
+            <!-- Measurement lines on side -->
+            <line x1="20" y1="55" x2="27" y2="55" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+            <line x1="20" y1="60" x2="25" y2="60" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+            <line x1="20" y1="65" x2="27" y2="65" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
+            <line x1="20" y1="70" x2="25" y2="70" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
+            <!-- Horizontal rule below -->
+            <line x1="35" y1="100" x2="105" y2="100" stroke="rgba(201,168,76,0.25)" stroke-width="0.8"/>
+            <text x="70" y="116" fill="rgba(201,168,76,0.35)" font-size="7" text-anchor="middle" font-family="Montserrat,sans-serif" letter-spacing="3" font-weight="600">BIOTECH</text>
+          </svg>
+          <span class="identidad__visual-caption">Fotografía de laboratorio<br>/ proceso biotecnológico</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       BENEFICIOS — dark navy, 2×2 grid, outline icons (Odella pattern)
+       ================================================================ -->
+  <section class="section section--azul" id="canal" aria-labelledby="beneficios-h2">
+    <div class="section__inner">
+
+      <div class="beneficios__header reveal">
+        <span class="section-label section-label--light">Por qué SEGLE en tu canal</span>
+        <h2 class="beneficios__h2" id="beneficios-h2">
+          Cuatro razones para incorporar SEGLE a tu portafolio especializado
+        </h2>
+      </div>
+
+      <div class="beneficios__grid" role="list">
+
+        <article class="beneficio-card reveal" role="listitem">
+          <div class="beneficio-card__icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+          </div>
+          <h3 class="beneficio-card__title">Formulación farmacéutica</h3>
+          <p class="beneficio-card__body">Activos en concentración clínicamente relevante — no decorativa. Ensayos de estabilidad formales y certificados de análisis por lote. El producto hace lo que dice que hace, lote tras lote.</p>
+        </article>
+
+        <article class="beneficio-card reveal reveal-delay-1" role="listitem">
+          <div class="beneficio-card__icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <h3 class="beneficio-card__title">Canal selectivo como ventaja real</h3>
+          <p class="beneficio-card__body">SEGLE no está en supermercados ni plataformas de precio. El socio que trabaja con nosotros tiene acceso a algo que su competencia directa probablemente no tiene — y eso se traduce en decisión de compra.</p>
+        </article>
+
+        <article class="beneficio-card reveal reveal-delay-2" role="listitem">
+          <div class="beneficio-card__icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="beneficio-card__title">Margen diferenciado</h3>
+          <p class="beneficio-card__body">35–50% de margen para el canal especializado. Recompra predecible cada 45–60 días. Un paciente fidelizado en el protocolo antiage puede representar entre ,000 y ,000 MXN anuales en el mismo punto de venta.</p>
+        </article>
+
+        <article class="beneficio-card reveal reveal-delay-3" role="listitem">
+          <div class="beneficio-card__icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </div>
+          <h3 class="beneficio-card__title">Soporte técnico activo</h3>
+          <p class="beneficio-card__body">Capacitación en los primeros 15 días, material de punto de venta con el Kit de Inicio, y seguimiento activo en los primeros 30 días para evaluar rotación y resolver dudas del equipo.</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       PORTAFOLIO — 4 protocol cards horizontal
+       ================================================================ -->
+  <section class="section" id="portafolio" aria-labelledby="portafolio-h2">
+    <div class="section__inner">
+
+      <div class="portafolio__header reveal">
+        <span class="section-label">Sistema de tratamiento</span>
+        <h2 class="portafolio__h2" id="portafolio-h2">
+          Cuatro protocolos clínicos, siete SKUs héroe
+        </h2>
+        <p class="portafolio__intro">
+          El portafolio de SEGLE no es una colección de productos — es un sistema de tratamiento donde cada SKU tiene un rol claro. El paciente que adopta un protocolo completo compra cada 45–60 días y regresa donde le explicaron el conjunto correcto.
+        </p>
+      </div>
+
+      <div class="portafolio__grid reveal" role="list">
+
+        <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__num" aria-hidden="true">01</div>
+          <h3 class="protocolo-card__title">Barrera Sensible</h3>
+          <p class="protocolo-card__body">Piel sensibilizada, post-procedimiento, rosácea en mantenimiento. El más relevante para clínicas con láser y peeling.</p>
+          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
+            <li>Skin Factor</li>
+            <li>Skin Factor Barrier</li>
+            <li>Restaura</li>
+          </ul>
+        </article>
+
+        <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__num" aria-hidden="true">02</div>
+          <h3 class="protocolo-card__title">Antiage Avanzado</h3>
+          <p class="protocolo-card__body">Pérdida de firmeza, arrugas de expresión, flacidez incipiente. El ticket promedio más alto del portafolio.</p>
+          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
+            <li>DMAE Lift 10</li>
+            <li>Pure Retinol / Tinolvital</li>
+            <li>Restaura</li>
+          </ul>
+        </article>
+
+        <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__num" aria-hidden="true">03</div>
+          <h3 class="protocolo-card__title">Piel Urbana / Pantallas</h3>
+          <p class="protocolo-card__body">Microbiota desequilibrada, luz azul crónica, inflamación silenciosa. Mayor potencial de captación de perfil joven urbano.</p>
+          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
+            <li>Blue Balance Sérum</li>
+            <li>Blue Balance Gel Crema</li>
+          </ul>
+        </article>
+
+        <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__num" aria-hidden="true">04</div>
+          <h3 class="protocolo-card__title">Imperfecciones y Textura</h3>
+          <p class="protocolo-card__body">Piel grasa, poros dilatados, acné leve a moderado, manchas post-inflamatorias. Consulta de alta frecuencia en farmacia.</p>
+          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
+            <li>Glicolmix Exfoliante</li>
+            <li>Clear Skin</li>
+          </ul>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       POSICIONAMIENTO COMPETITIVO — dark navy, highlighted SEGLE col
+       ================================================================ -->
+  <section class="section section--azul" id="posicionamiento" aria-labelledby="posicion-h2">
+    <div class="section__inner">
+
+      <div class="posicion__header reveal">
+        <span class="section-label section-label--light">Posicionamiento</span>
+        <h2 class="posicion__h2" id="posicion-h2">
+          Dónde se ubica SEGLE en el mercado dermo mexicano
+        </h2>
+        <p class="posicion__sub">
+          El espacio entre la farmacia masiva y la marca clínica premium — con mejor formulación que una y mejor accesibilidad que la otra.
+        </p>
+      </div>
+
+      <div class="comp-table-wrap reveal" role="region" aria-label="Tabla comparativa de posicionamiento competitivo">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th scope="col">Criterio</th>
+              <th scope="col">Farmacia masiva <small>LRP · Vichy · Eucerin</small></th>
+              <th scope="col" class="col-segle">SEGLE</th>
+              <th scope="col">Marca clínica premium <small>SkinCeuticals · Medik8</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Concentración de activos</td>
+              <td>Cosmética estándar</td>
+              <td class="col-segle">Clínica / alta concentración</td>
+              <td>Clínica / alta concentración</td>
+            </tr>
+            <tr>
+              <td>Origen de formulación</td>
+              <td>Cosmético</td>
+              <td class="col-segle">Farmacéutico-biotecnológico</td>
+              <td>Cosmético avanzado</td>
+            </tr>
+            <tr>
+              <td>Precio al consumidor</td>
+              <td>$300–$700 MXN</td>
+              <td class="col-segle">$650–$1,600 MXN</td>
+              <td>$1,800–$4,000 MXN</td>
+            </tr>
+            <tr>
+              <td>Margen canal especializado</td>
+              <td>20%–30%</td>
+              <td class="col-segle">35%–50%</td>
+              <td>25%–40%</td>
+            </tr>
+            <tr>
+              <td>Canal de distribución</td>
+              <td>Masivo / farmacia</td>
+              <td class="col-segle">Selectivo / especializado</td>
+              <td>Semi-exclusivo / médico</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FORMULARIO DE CAPTURA
+       Odella pattern: 2-col, B2B gate, dark CTA button
+       ================================================================ -->
+  <section class="section form-section" id="formulario" aria-labelledby="form-h2">
+    <div class="section__inner">
+      <div class="form__grid">
+
+        <!-- Left: intro + contact info -->
+        <div class="reveal">
+          <span class="section-label">Acceso al canal</span>
+          <h2 class="form__h2" id="form-h2">
+            Inicia conversación con nuestro equipo de canal
+          </h2>
+          <p class="form__intro">
+            Si representas una farmacia de especialidad, clínica dermatológica, consultorio médico o distribuidora de dermocosmética, podemos explorar si SEGLE es el fit correcto para tu portafolio. Sin compromiso — solo información.
+          </p>
+
+          <ul class="form__info-list" aria-label="Información de contacto">
+            <li class="form__info-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              Ciudad de México · Operación nacional
+            </li>
+            <li class="form__info-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Respuesta en 24 horas hábiles
+            </li>
+            <li class="form__info-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+              </svg>
+              segleclinical.com.mx
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: lead capture form -->
+        <div class="reveal reveal-delay-1">
+          <div class="lead-form" id="form-card">
+
+            <!-- ── ESTADO NORMAL: gate + formulario Zoho ─────────── -->
+            <div id="form-default">
+
+              <!-- B2B gate — Odella pattern -->
+              <span class="form__gate">
+                ★ Exclusivo para farmacias de especialidad, clínicas dermatológicas y profesionales certificados
+              </span>
+
+              <!-- ═══════════════════════════════════════════════════════
+                   ZONA ZOHO CRM — PEGAR CÓDIGO AQUÍ
+                   ═══════════════════════════════════════════════════════
+
+                   ZOHO CRM (pantalla "Detalles de la Lead Corpo"):
+
+                   1. URL de ubicación del formulario →
+                      Escribe: https://landing.omniaex.com/
+                      Clic en "Agregar"
+
+                   2. Acción al enviar →
+                      Deja "Redirigir a URL personalizada"
+                      URL: https://landing.omniaex.com/
+                      (no importa a dónde redirige porque el iframe
+                       oculto de esta página intercepta la respuesta
+                       y el usuario NUNCA sale del landing)
+
+                   3. Asignar propietario → Verena Bormann ✓ (ya está)
+
+                   4. NOTIFICACIÓN:
+                      → Activa "Notificar al propietario de Posibles
+                        clientes" (para que Verena reciba email al
+                        llegar cada lead)
+                      → "Confirmar al visitante" = opcional
+                        (manda auto-reply al lead)
+
+                   5. Clic "GUARDAR"
+
+                   6. Luego busca el botón "Obtener código" /
+                      "Guardar y publicar" → copia TODO el HTML
+
+                   7. Reemplaza el div id="zoho-form-zone" de abajo
+                      por ese código copiado.
+
+                   El JS de esta página detecta el form automáticamente,
+                   le agrega target="zoho-hidden-frame" y cuando Zoho
+                   confirma el envío muestra el mensaje de gracias
+                   sin redirigir al visitante a ningún lado.
+                   ═══════════════════════════════════════════════════════ -->
+
+              <div id="zoho-form-zone">
+                <!-- ─── PLACEHOLDER ───────────────────────────────────
+                     Reemplaza este bloque con tu código de Zoho CRM.
+                     ─────────────────────────────────────────────────── -->
+                <div class="zoho-pending" role="status">
+                  <svg class="zoho-pending__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+                  </svg>
+                  <p class="zoho-pending__title">Formulario Zoho CRM</p>
+                  <p class="zoho-pending__body">
+                    Configura los ajustes en Zoho (ver instrucciones en comentarios), obtén el código y pégalo aquí.
+                  </p>
+                  <span class="zoho-pending__badge">Pendiente de configuración</span>
+                </div>
+              </div>
+
+            </div>
+            <!-- ── FIN ESTADO NORMAL ────────────────────────────────── -->
+
+            <!-- ── ESTADO GRACIAS — oculto, se muestra tras el envío ─
+                 El JS lo activa cuando el iframe captura la respuesta
+                 de Zoho. El visitante NO sale del landing.
+                 ──────────────────────────────────────────────────────── -->
+            <div class="form-thanks" id="form-thanks" aria-live="assertive">
+              <div class="form-thanks__check" aria-hidden="true">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="square" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h3 class="form-thanks__title">Solicitud recibida</h3>
+              <p class="form-thanks__body">
+                Nuestro equipo de canal te contactará en las próximas 24 horas hábiles para explorar la oportunidad de trabajo conjunto.
+              </p>
+              <a
+                class="form-thanks__wa"
+                href="https://wa.me/5215574047784?text=Hola%2C%20acabo%20de%20enviar%20una%20solicitud%20y%20quisiera%20más%20información%20sobre%20SEGLE%20Clinical%20México."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Escribirnos por WhatsApp
+              </a>
+            </div>
+            <!-- ── FIN ESTADO GRACIAS ─────────────────────────────────── -->
+
+          </div>
+
+          <!-- iframe oculto — captura la redirección de Zoho CRM.
+               Esto evita que el visitante salga del landing al enviar.
+               No es visible ni afecta el layout. -->
+          <iframe
+            name="zoho-hidden-frame"
+            id="zoho-hidden-frame"
+            style="display:none;width:0;height:0;border:0;"
+            tabindex="-1"
+            aria-hidden="true"
+            title="Zoho CRM form response"
+          ></iframe>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FOOTER — 4 columns navy (Odella pattern)
+       ================================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__top">
+
+        <div>
+          <div class="footer__wordmark">SEGLE</div>
+          <span class="footer__tagline">Biotech Skincare · México</span>
+          <p class="footer__brand-body">
+            Laboratorio español de I+D+I. Cosmética biotecnológica de alta gama, formulada con estándares farmacéuticos europeos, para el canal dermatológico especializado en México.
+          </p>
+        </div>
+
+        <nav aria-label="Canal">
+          <span class="footer__col-title">Canal</span>
+          <ul class="footer__nav-list">
+            <li><a href="#formulario">Solicitar información</a></li>
+            <li><a href="#portafolio">Ver portafolio</a></li>
+            <li><a href="#canal">Por qué SEGLE</a></li>
+            <li><a href="#formulario">Descargar dossier</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Protocolos">
+          <span class="footer__col-title">Protocolos</span>
+          <ul class="footer__nav-list">
+            <li><a href="#portafolio">Barrera Sensible</a></li>
+            <li><a href="#portafolio">Antiage Avanzado</a></li>
+            <li><a href="#portafolio">Piel Urbana</a></li>
+            <li><a href="#portafolio">Imperfecciones</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <span class="footer__col-title">Contacto</span>
+          <ul class="footer__nav-list">
+            <li><a href="https://www.segleclinical.com.mx" target="_blank" rel="noopener noreferrer">segleclinical.com.mx</a></li>
+            <li><a href="#">Ciudad de México</a></li>
+            <li><a href="#">Operación nacional</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2025 Segle Clinical México · Cosmeceutical Lab México, S.A. DE C.V. · Todos los derechos reservados
+        </p>
+        <p class="footer__cofepris">COFEPRIS 223300519X2864</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       WHATSAPP — Botón flotante
+       Número: +52 155 7404 7784
+       El texto pre-rellenado facilita el primer contacto B2B.
+       ================================================================ -->
+  <a
+    class="wa-fab"
+    href="https://wa.me/5215574047784?text=Hola%2C%20me%20interesa%20información%20sobre%20el%20canal%20especializado%20de%20SEGLE%20Clinical%20México."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp al +52 155 7404 7784"
+  >
+    <!-- WhatsApp icon (filled path — excepción UX justificada para reconocimiento inmediato) -->
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wa-fab__label">WhatsApp</span>
+  </a>
+
+  <!-- ================================================================
+       JAVASCRIPT — Nav toggle + scroll effects
+       Nota: la validación del formulario la maneja Zoho CRM nativamente.
+       ================================================================ -->
+  <script>
+    // ── NAV TOGGLE (mobile) ────────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── NAV SHADOW ON SCROLL ──────────────────────────────────────
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // ── SCROLL REVEAL ─────────────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const siblings = Array.from(entry.target.parentElement.children)
+          .filter(c => c.classList.contains('reveal'));
+        const delay = siblings.indexOf(entry.target) * 90;
+        setTimeout(() => entry.target.classList.add('is-visible'), delay);
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── ZOHO CRM — iframe submit capture + gracias inline ─────────
+    //
+    // CÓMO FUNCIONA:
+    // 1. El JS busca el <form> dentro de #zoho-form-zone
+    // 2. Le agrega target="zoho-hidden-frame" automáticamente
+    //    → cuando Zoho hace la redirección post-submit, la carga
+    //      en el iframe oculto, NO en el tab principal
+    // 3. El flag `zohoSubmitFired` distingue el load inicial de
+    //    about:blank del load real tras el envío
+    // 4. Al detectar el envío exitoso: oculta el form, muestra
+    //    el estado de gracias (que incluye acceso rápido a WA)
+    //
+    // NOTA: si Zoho agrega su propio onSubmit de validación,
+    // este código lo respeta — solo actúa si el submit pasa.
+
+    let zohoSubmitFired = false;
+
+    function initZohoCapture() {
+      const zohoForm = document.querySelector('#zoho-form-zone form');
+      const hiddenFrame = document.getElementById('zoho-hidden-frame');
+
+      if (!zohoForm || !hiddenFrame) return; // formulario aún no pegado
+
+      // Inyectar target para que Zoho redirija al iframe, no a la tab
+      zohoForm.setAttribute('target', 'zoho-hidden-frame');
+
+      // Personalizar texto del botón submit al idioma/tono de marca
+      const submitBtn = zohoForm.querySelector('input[type="submit"], button[type="submit"]');
+      if (submitBtn) {
+        if (submitBtn.tagName === 'INPUT') {
+          submitBtn.value = 'SOLICITAR INFORMACIÓN DE CANAL';
+        } else {
+          submitBtn.textContent = 'SOLICITAR INFORMACIÓN DE CANAL';
+        }
+      }
+
+      // Marcar intención de envío (el flag evita falso positivo en load inicial)
+      zohoForm.addEventListener('submit', () => {
+        zohoSubmitFired = true;
+      });
+
+      // Cuando el iframe carga la respuesta de Zoho → mostrar gracias
+      hiddenFrame.addEventListener('load', () => {
+        if (!zohoSubmitFired) return; // ignorar about:blank inicial
+        zohoSubmitFired = false;
+
+        setTimeout(() => {
+          // Ocultar el form y el gate
+          document.getElementById('form-default').style.display = 'none';
+
+          // Mostrar el estado de gracias inline
+          const thanks = document.getElementById('form-thanks');
+          thanks.classList.add('is-visible');
+          thanks.focus();
+          thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 350);
+      });
+    }
+
+    // Intentar inicializar ahora (si el form ya está pegado)
+    // y también cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', initZohoCapture);
+  </script>
+
+</body>
+</html>
