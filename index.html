@@ -323,8 +323,7 @@
       transition: transform var(--t-fast);
       vertical-align: middle;
     }
-    .nav__item:hover .nav__arrow,
-    .nav__item:focus-within .nav__arrow { transform: rotate(180deg); }
+    .nav__item.is-open .nav__arrow { transform: rotate(180deg); }
 
     .nav__sub {
       display: none;
@@ -342,8 +341,8 @@
       padding: var(--space-2) 0;
       box-shadow: 0 8px 24px rgba(13,27,62,0.1);
     }
-    .nav__item:hover .nav__sub,
-    .nav__item:focus-within .nav__sub { display: block; }
+    /* Submenu: controlled by JS click — NOT hover */
+    .nav__item.is-open .nav__sub { display: block; }
 
     .nav__sub li { width: 100%; }
     .nav__sub a {
@@ -2342,10 +2341,19 @@
               style="width:100%;height:100%;object-fit:cover;display:block;"
             >
           </div>
-          <!-- Collagen NAD+ Serum -->
+          <!-- Antiox NAD+ Sérum — producto individual fondo blanco -->
           <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
             <img
-              src="assets/collagen-nad-serum.jpg"
+              src="assets/antiox-nad-serum.jpeg"
+              alt="SEGLE Antiox NAD+ Facial Serum — Antioxidant Cellular Energy Booster"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            >
+          </div>
+          <!-- Collagen NAD+ Sérum -->
+          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+            <img
+              src="assets/collagen-nad-serum.jpeg"
               alt="SEGLE Collagen NAD+ Facial Serum — Firming Cellular Energy Booster"
               loading="lazy"
               style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -2354,7 +2362,7 @@
           <!-- Collagen NAD+ Crema -->
           <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
             <img
-              src="assets/collagen-nad-crema.jpg"
+              src="assets/collagen-nad-crema.jpeg"
               alt="SEGLE Collagen NAD+ Day/Night Cream — Firming Cellular Energy Booster"
               loading="lazy"
               style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -3338,6 +3346,44 @@
         navToggle.setAttribute('aria-expanded', 'false');
       });
     });
+
+    // ── NAV SUBMENÚS — click toggle, NO hover ────────────────────────────
+    // El dropdown se abre con click y se mantiene abierto mientras el
+    // usuario mueve el mouse hacia los ítems del submenú (sin perderlo).
+    ;(function() {
+      const allNavItems = Array.from(document.querySelectorAll('#nav-links .nav__item'));
+
+      allNavItems.forEach(item => {
+        const sub = item.querySelector('.nav__sub');
+        if (!sub) return;
+
+        const trigger = item.querySelector(':scope > a');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault(); // abrir submenú, no navegar al anchor del padre
+          const isOpen = item.classList.contains('is-open');
+          // Cerrar todos los demás submenús
+          allNavItems.forEach(i => i.classList.remove('is-open'));
+          // Abrir este si estaba cerrado
+          if (!isOpen) item.classList.add('is-open');
+        });
+      });
+
+      // Cerrar submenús al hacer click fuera de la barra de nav
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#nav-links')) {
+          allNavItems.forEach(i => i.classList.remove('is-open'));
+        }
+      }, true);
+
+      // Cerrar con tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          allNavItems.forEach(i => i.classList.remove('is-open'));
+        }
+      });
+    })();
 
     // ── NAV SHADOW ON SCROLL ──────────────────────────────────────
     const nav = document.getElementById('main-nav');
