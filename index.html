@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="SEGLE Biotech Skincare — Laboratorio español de I+D+I. Cosmética biotecnológica de alta gama para el canal dermatológico especializado en México.">
-  <title>SEGLE Clinical México — Canal Especializado</title>
+  <title>SEGLE Biotech Skincare — Canal Especializado</title>
 
   <!-- Google Fonts — Montserrat (marca) + Cormorant Garamond (display B2B) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 
   <style>
     /* ================================================================
-       SEGLE Clinical México — Landing Page
+       SEGLE Biotech Skincare — Landing Page
        Tokens: SEGLE_Web_Brand_Kit_Mexico.md
        References: REF_Valecol.md (structure), REF_Odella.md (components)
        ================================================================ */
@@ -247,9 +247,9 @@
       flex-shrink: 0;
     }
     .nav__logo-img {
-      height: 36px;
+      height: 48px;
       width: auto;
-      /* invert to navy: filter trick for white-bg logo */
+      display: block;
     }
     .nav__logo-sep {
       width: 1px;
@@ -333,6 +333,17 @@
       padding: clamp(4rem, 10vw, var(--space-20)) var(--page-pad) clamp(4rem, 8vw, var(--space-16));
       position: relative;
       overflow: hidden;
+    }
+
+    /* Video loop background — sutil, el azul domina */
+    .hero__video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* Geometric texture — gold line grid, very subtle */
@@ -1362,8 +1373,306 @@
     }
     .form-thanks__wa:hover { background: #25D366; color: #fff; }
 
+    /* ── FORM COMPACT — reduce visual weight of the form section ─── */
+    .form__grid { gap: var(--space-8) !important; }
+    .lead-form { padding: var(--space-5) !important; }
+    #crmWebToEntityForm .zcwf_row { margin: 10px 0 !important; }
+    #crmWebToEntityForm .zcwf_col_fld input[type=text],
+    #crmWebToEntityForm .zcwf_col_fld input[type=email],
+    #crmWebToEntityForm .zcwf_col_fld input[type=tel],
+    #crmWebToEntityForm .zcwf_col_fld select,
+    #crmWebToEntityForm .zcwf_col_fld_slt {
+      padding: 0.55rem 0.875rem !important;
+      font-size: 0.8rem !important;
+    }
+    #crmWebToEntityForm .zcwf_col_lab label { font-size: 0.68rem !important; }
+    .form__gate { margin-bottom: var(--space-4) !important; padding-bottom: var(--space-3) !important; font-size: 0.65rem !important; }
+
     /* ================================================================
-       WHATSAPP — Botón flotante
+       MODALES DE PRODUCTO — portafolio expandible
+       ================================================================ */
+    .proto-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-azul);
+      border: 1px solid var(--color-azul);
+      padding: 0.45rem 1rem;
+      margin-top: var(--space-4);
+      cursor: pointer;
+      background: none;
+      border-radius: 0;
+      transition: background var(--t-fast), color var(--t-fast);
+      font-family: var(--font-brand);
+    }
+    .proto-btn:hover { background: var(--color-azul); color: var(--color-blanco); }
+    .proto-btn svg { flex-shrink: 0; transition: transform var(--t-fast); }
+    .proto-btn:hover svg { transform: translateX(3px); }
+
+    /* Product image slot en card de protocolo */
+    .protocolo-card__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--color-gris-fondo);
+      border: var(--border-thin);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-4);
+      overflow: hidden;
+      position: relative;
+    }
+    .protocolo-card__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .protocolo-card__img svg { opacity: 0.35; }
+    .protocolo-card__award {
+      position: absolute;
+      top: var(--space-2); right: var(--space-2);
+      font-size: 0.6rem;
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--color-dorado);
+      color: var(--color-blanco);
+      padding: 2px 6px;
+    }
+
+    /* Modal overlay */
+    .prod-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,27,62,0.82);
+      z-index: 800;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-5);
+      backdrop-filter: blur(2px);
+    }
+    .prod-modal-overlay.is-open { display: flex; }
+
+    .prod-modal {
+      background: var(--color-blanco);
+      max-width: 760px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.25s cubic-bezier(.25,.46,.45,.94);
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .prod-modal__header {
+      background: var(--color-azul);
+      padding: var(--space-6) var(--space-7);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-4);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .prod-modal__protocol-num {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: rgba(255,255,255,0.25);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+    .prod-modal__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: var(--fw-regular);
+      color: var(--color-blanco);
+      line-height: 1.2;
+    }
+    .prod-modal__close {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--color-blanco);
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background var(--t-fast);
+    }
+    .prod-modal__close:hover { background: rgba(255,255,255,0.1); }
+
+    .prod-modal__body { padding: var(--space-6) var(--space-7); }
+
+    /* Product tabs */
+    .prod-tabs {
+      display: flex;
+      border-bottom: var(--border-thin);
+      margin-bottom: var(--space-6);
+      gap: 0;
+      overflow-x: auto;
+    }
+    .prod-tab-btn {
+      font-family: var(--font-brand);
+      font-size: var(--text-xs);
+      font-weight: var(--fw-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-gris-texto);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: var(--space-3) var(--space-5);
+      cursor: pointer;
+      transition: color var(--t-fast), border-color var(--t-fast);
+      white-space: nowrap;
+    }
+    .prod-tab-btn:hover { color: var(--color-azul); }
+    .prod-tab-btn.is-active {
+      color: var(--color-azul);
+      border-bottom-color: var(--color-dorado);
+    }
+
+    .prod-panel { display: none; }
+    .prod-panel.is-active { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-6); }
+
+    .prod-panel__img-slot {
+      background: var(--color-crema);
+      border: var(--border-thin);
+      aspect-ratio: 3/4;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: var(--space-3);
+      position: relative;
+    }
+    .prod-panel__award-badge {
+      position: absolute; top: var(--space-2); left: var(--space-2);
+      font-size: 0.6rem; font-weight: var(--fw-bold);
+      text-transform: uppercase; letter-spacing: 0.04em;
+      background: var(--color-dorado); color: #fff;
+      padding: 3px 8px;
+    }
+    .prod-panel__img-label {
+      font-size: var(--text-xs); text-transform: uppercase;
+      letter-spacing: var(--ls-wider); color: var(--color-gris-texto);
+      font-weight: var(--fw-bold);
+    }
+
+    .prod-panel__info { display: flex; flex-direction: column; gap: var(--space-4); }
+    .prod-panel__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: var(--fw-regular);
+      color: var(--color-azul);
+      margin-bottom: var(--space-1);
+    }
+    .prod-panel__size {
+      font-size: var(--text-xs); text-transform: uppercase;
+      letter-spacing: var(--ls-wide); color: var(--color-gris-texto);
+    }
+    .prod-panel__desc {
+      font-size: var(--text-sm); line-height: var(--lh-body);
+      color: var(--color-gris-texto);
+    }
+    .prod-panel__section-title {
+      font-size: var(--text-xs); font-weight: var(--fw-bold);
+      text-transform: uppercase; letter-spacing: var(--ls-wide);
+      color: var(--color-azul); margin-bottom: var(--space-2);
+    }
+    .prod-panel__activos {
+      list-style: none; display: flex; flex-direction: column;
+      gap: var(--space-2);
+    }
+    .prod-panel__activos li {
+      font-size: var(--text-xs); color: var(--color-gris-texto);
+      padding-left: var(--space-4); border-left: 2px solid var(--color-dorado);
+      line-height: 1.5;
+    }
+    .prod-panel__result {
+      background: rgba(13,27,62,0.04);
+      border-left: 3px solid var(--color-azul);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      line-height: var(--lh-body);
+      color: var(--color-negro);
+    }
+
+    @media (max-width: 600px) {
+      .prod-panel.is-active { grid-template-columns: 1fr; }
+      .prod-modal__header { padding: var(--space-5); }
+      .prod-modal__body { padding: var(--space-4) var(--space-5); }
+    }
+
+    /* ================================================================
+       PROCESO — Sección Cómo trabajamos (Odella-inspired)
+       ================================================================ */
+    .proceso__h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.2vw, var(--text-3xl));
+      font-weight: var(--fw-regular);
+      line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight);
+      color: var(--color-blanco);
+      margin-bottom: var(--space-3);
+    }
+    .proceso__sub {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.55);
+      line-height: var(--lh-body);
+      max-width: 500px;
+      margin-bottom: var(--space-10);
+    }
+    .proceso__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .proceso__step {
+      padding: var(--space-7) var(--space-5);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .proceso__step:last-child { border-right: none; }
+
+    .proceso__step-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: var(--space-4);
+    }
+    .proceso__step-icon {
+      color: var(--color-dorado);
+      margin-bottom: var(--space-4);
+    }
+    .proceso__step-title {
+      font-size: var(--text-xs); font-weight: var(--fw-bold);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--color-blanco); margin-bottom: var(--space-3);
+    }
+    .proceso__step-body {
+      font-size: var(--text-sm); line-height: 1.65;
+      color: rgba(255,255,255,0.55);
+    }
+    @media (max-width: 860px) {
+      .proceso__steps { grid-template-columns: 1fr 1fr; }
+      .proceso__step { border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .proceso__step:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 480px) {
+      .proceso__steps { grid-template-columns: 1fr; }
+      .proceso__step { border-right: none; }
+    }
        Posición: esquina inferior derecha
        Sin border-radius (regla absoluta de marca SEGLE)
        ================================================================ */
@@ -1495,16 +1804,16 @@
        ================================================================ -->
   <nav class="nav" id="main-nav" role="navigation" aria-label="Navegación principal">
     <div class="nav__inner">
-      <a href="#" class="nav__logo-link" aria-label="SEGLE Clinical México — Inicio">
+      <a href="#" class="nav__logo-link" aria-label="SEGLE Biotech Skincare — Inicio">
         <img
           class="nav__logo-img"
-          src="data:image/jpeg;base64,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"
+          src="assets/logo/SEGLE_logo.jpg"
           alt="SEGLE Biotech Skincare"
           width="90"
           height="36"
         >
         <span class="nav__logo-sep" aria-hidden="true"></span>
-        <span class="nav__logo-sub">Clinical México<br>Canal Especializado</span>
+        <span class="nav__logo-sub">Biotech Skincare<br>Canal Especializado</span>
       </a>
 
       <ul class="nav__links" id="nav-links" role="list">
@@ -1534,6 +1843,12 @@
        HERO — dark navy, clinical, no lifestyle
        ================================================================ -->
   <section class="hero" id="inicio" aria-labelledby="hero-h1">
+
+    <!-- Video de marca en loop — muted, no bloqueante, fallback navy -->
+    <video class="hero__video-bg" autoplay muted loop playsinline aria-hidden="true">
+      <source src="assets/video/hero-loop.mp4" type="video/mp4">
+    </video>
+
     <div class="hero__inner">
 
       <!-- Left: headline + CTAs + stats -->
@@ -1573,35 +1888,15 @@
         </div>
       </div>
 
-      <!-- Right: product visual placeholder -->
+      <!-- Right: product family photo -->
       <div class="hero__visual" aria-hidden="true">
         <div class="hero__product-frame">
-          <!-- Lab / molecule SVG — brand visual vocabulary: sea + science -->
-          <svg class="hero__product-svg" width="160" height="200" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Flask outline -->
-            <path d="M60 30 L60 90 L18 168 L142 168 L100 90 L100 30 Z" stroke="rgba(201,168,76,0.5)" stroke-width="1" fill="none"/>
-            <line x1="48" y1="30" x2="112" y2="30" stroke="rgba(201,168,76,0.5)" stroke-width="1"/>
-            <!-- Liquid level -->
-            <path d="M32 150 L128 150" stroke="rgba(44,95,74,0.45)" stroke-width="0.8"/>
-            <path d="M25 160 L135 160" stroke="rgba(44,95,74,0.45)" stroke-width="0.8"/>
-            <!-- Liquid fill -->
-            <path d="M33 152 Q50 148 80 152 Q110 156 127 152 L135 162 L25 162 Z"
-                  fill="rgba(44,95,74,0.12)" stroke="none"/>
-            <!-- Bubbles / actives -->
-            <circle cx="70" cy="130" r="5" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
-            <circle cx="92" cy="118" r="3.5" stroke="rgba(201,168,76,0.3)" stroke-width="1" fill="none"/>
-            <circle cx="60" cy="142" r="2.5" stroke="rgba(201,168,76,0.3)" stroke-width="1" fill="none"/>
-            <circle cx="100" cy="138" r="4" stroke="rgba(201,168,76,0.25)" stroke-width="1" fill="none"/>
-            <!-- Molecule above -->
-            <circle cx="80" cy="14" r="5" stroke="rgba(201,168,76,0.55)" stroke-width="1" fill="none"/>
-            <circle cx="65" cy="22" r="3" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
-            <circle cx="96" cy="20" r="3.5" stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"/>
-            <line x1="75.5" y1="16.5" x2="67.5" y2="20" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
-            <line x1="84.5" y1="16.5" x2="93" y2="18.5" stroke="rgba(201,168,76,0.35)" stroke-width="0.8"/>
-            <!-- Vertical line connecting molecule to flask -->
-            <line x1="80" y1="19" x2="80" y2="30" stroke="rgba(201,168,76,0.2)" stroke-width="0.8" stroke-dasharray="2 2"/>
-          </svg>
-          <span class="hero__product-caption">Fotografía de producto</span>
+          <img
+            src="assets/hero/product-family.jpg"
+            alt="Portafolio de productos SEGLE Biotech Skincare"
+            loading="eager"
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+          >
         </div>
       </div>
 
@@ -1670,7 +1965,7 @@
             Los activos de nuestras fórmulas se obtienen mediante procesos biotecnológicos controlados —fermentación, cultivo celular, síntesis enzimática— que producen ingredientes de mayor pureza, mayor estabilidad y mayor biodisponibilidad que los obtenidos por extracción convencional.
           </p>
           <p class="identidad__body">
-            En México operamos a través de <strong>Segle Clinical México</strong>, con distribución selectiva en farmacias dermatológicas, clínicas y médicos de estética. No buscamos presencia masiva — buscamos socios que entiendan el producto.
+            En México operamos a través de <strong>SEGLE Biotech Skincare</strong>, con distribución selectiva en farmacias dermatológicas, clínicas y médicos de estética. No buscamos presencia masiva — buscamos socios que entiendan el producto.
           </p>
           <div class="identidad__badges" aria-label="Atributos de formulación">
             <span class="identidad__badge">Sin parabenos</span>
@@ -1680,40 +1975,46 @@
           </div>
         </div>
 
-        <div class="reveal reveal-delay-2 identidad__visual" aria-label="Imagen de laboratorio — proceso biotecnológico">
-          <!-- Lab / petri dish SVG — brand vocabulary: science, no lifestyle -->
-          <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Outer petri dish -->
-            <ellipse cx="70" cy="80" rx="52" ry="15" stroke="#C9A84C" stroke-width="1" fill="none"/>
-            <ellipse cx="70" cy="70" rx="52" ry="15" stroke="#C9A84C" stroke-width="1" fill="none"/>
-            <line x1="18" y1="70" x2="18" y2="80" stroke="#C9A84C" stroke-width="1"/>
-            <line x1="122" y1="70" x2="122" y2="80" stroke="#C9A84C" stroke-width="1"/>
-            <!-- Culture fill -->
-            <ellipse cx="70" cy="70" rx="40" ry="10" fill="rgba(44,95,74,0.1)" stroke="none"/>
-            <ellipse cx="70" cy="70" rx="40" ry="10" stroke="#2C5F4A" stroke-width="0.8" fill="none" stroke-dasharray="3 3"/>
-            <!-- Colony dots -->
-            <circle cx="58" cy="68" r="4" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.15)"/>
-            <circle cx="74" cy="72" r="3" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
-            <circle cx="86" cy="66" r="3.5" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.12)"/>
-            <circle cx="65" cy="75" r="2" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
-            <circle cx="80" cy="62" r="2.5" stroke="#2C5F4A" stroke-width="0.8" fill="rgba(44,95,74,0.1)"/>
-            <!-- Pipette -->
-            <line x1="100" y1="8" x2="100" y2="58" stroke="#C9A84C" stroke-width="1"/>
-            <rect x="96" y="4" width="8" height="8" rx="0" stroke="#C9A84C" stroke-width="1" fill="none"/>
-            <!-- Droplet -->
-            <path d="M100 60 Q97.5 67 100 72 Q102.5 67 100 60Z" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.18)"/>
-            <!-- Measurement lines on side -->
-            <line x1="20" y1="55" x2="27" y2="55" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
-            <line x1="20" y1="60" x2="25" y2="60" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
-            <line x1="20" y1="65" x2="27" y2="65" stroke="rgba(201,168,76,0.4)" stroke-width="0.8"/>
-            <line x1="20" y1="70" x2="25" y2="70" stroke="rgba(201,168,76,0.3)" stroke-width="0.8"/>
-            <!-- Horizontal rule below -->
-            <line x1="35" y1="100" x2="105" y2="100" stroke="rgba(201,168,76,0.25)" stroke-width="0.8"/>
-            <text x="70" y="116" fill="rgba(201,168,76,0.35)" font-size="7" text-anchor="middle" font-family="Montserrat,sans-serif" letter-spacing="3" font-weight="600">BIOTECH</text>
-          </svg>
-          <span class="identidad__visual-caption">Fotografía de laboratorio<br>/ proceso biotecnológico</span>
+        <div class="reveal reveal-delay-2 identidad__visual" aria-label="Laboratorio de formulación SEGLE — proceso biotecnológico">
+          <!-- Foto real de laboratorio: ampollas y pipeta de activos -->
+          <img
+            src="assets/identidad/lab-ampoules.jpg"
+            alt="Proceso de formulación biotecnológica SEGLE — activos en alta concentración"
+            loading="lazy"
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+          >
+          <!-- Micro: células de Haematococcus pluvialis — fuente de astaxantina -->
+          <div style="position:absolute;bottom:0;right:0;width:35%;aspect-ratio:1/1;overflow:hidden;border-left:1px solid var(--color-dorado);border-top:1px solid var(--color-dorado);">
+            <img
+              src="assets/identidad/algae-cells.jpg"
+              alt="Haematococcus pluvialis — alga fuente de astaxantina SEGLE"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.85;"
+            >
+          </div>
         </div>
 
+      </div><!-- fin identidad__grid -->
+
+      <!-- Video de marca — historia de SEGLE (YouTube, click to play) -->
+      <div class="reveal" style="margin-top:var(--space-10);">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-5);margin-bottom:var(--space-5);">
+          <div>
+            <span class="section-label">Nuestra historia</span>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-regular);color:var(--color-azul);letter-spacing:var(--ls-tight);">SEGLE Biotech Skincare — Quiénes somos</h3>
+          </div>
+          <a href="#formulario" class="btn btn-navy" style="flex-shrink:0;">Solicitar información</a>
+        </div>
+        <div style="position:relative;padding-bottom:42%;height:0;overflow:hidden;border:var(--border-thin);background:var(--color-azul);">
+          <iframe
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+            src="https://www.youtube.com/embed/9EllwpzIQIw"
+            title="SEGLE Biotech Skincare — Quiénes somos"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -1796,18 +2097,31 @@
 
       <div class="portafolio__grid reveal" role="list">
 
+        <!-- PROTOCOLO 01 -->
         <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Barrera Sensible">
+            <img src="assets/portafolio/familia-skin-factor-blue-balance.jpg" alt="Skin Factor + Skin Factor Barrier + Vital C — Protocolo Barrera Sensible SEGLE" loading="lazy" style="object-position:center left;">
+          </div>
           <div class="protocolo-card__num" aria-hidden="true">01</div>
           <h3 class="protocolo-card__title">Barrera Sensible</h3>
-          <p class="protocolo-card__body">Piel sensibilizada, post-procedimiento, rosácea en mantenimiento. El más relevante para clínicas con láser y peeling.</p>
+          <p class="protocolo-card__body">Piel sensibilizada, post-procedimiento, rosácea en mantenimiento. El protocolo más relevante para clínicas con láser y peeling.</p>
           <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
             <li>Skin Factor</li>
             <li>Skin Factor Barrier</li>
             <li>Restaura</li>
           </ul>
+          <button class="proto-btn" onclick="openModal('p01')" aria-haspopup="dialog">
+            Ver productos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
+        <!-- PROTOCOLO 02 -->
         <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Antiage Avanzado">
+            <img src="assets/portafolio/familia-antiage-glicolmix.jpg" alt="DMAE Lift10 + Vital C + Triple Retinoid — Protocolo Antiage SEGLE" loading="lazy" style="object-position:center right;">
+            <span class="protocolo-card__award">iDermo Oro</span>
+          </div>
           <div class="protocolo-card__num" aria-hidden="true">02</div>
           <h3 class="protocolo-card__title">Antiage Avanzado</h3>
           <p class="protocolo-card__body">Pérdida de firmeza, arrugas de expresión, flacidez incipiente. El ticket promedio más alto del portafolio.</p>
@@ -1816,9 +2130,18 @@
             <li>Pure Retinol / Tinolvital</li>
             <li>Restaura</li>
           </ul>
+          <button class="proto-btn" onclick="openModal('p02')" aria-haspopup="dialog">
+            Ver productos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
+        <!-- PROTOCOLO 03 -->
         <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Piel Urbana / Pantallas">
+            <img src="assets/portafolio/familia-skin-factor-blue-balance.jpg" alt="Blue Balance Sérum + Blue Balance Gel Crema — Protocolo Piel Urbana SEGLE" loading="lazy" style="object-position:center right;">
+            <span class="protocolo-card__award">iDermo Bronce</span>
+          </div>
           <div class="protocolo-card__num" aria-hidden="true">03</div>
           <h3 class="protocolo-card__title">Piel Urbana / Pantallas</h3>
           <p class="protocolo-card__body">Microbiota desequilibrada, luz azul crónica, inflamación silenciosa. Mayor potencial de captación de perfil joven urbano.</p>
@@ -1826,9 +2149,18 @@
             <li>Blue Balance Sérum</li>
             <li>Blue Balance Gel Crema</li>
           </ul>
+          <button class="proto-btn" onclick="openModal('p03')" aria-haspopup="dialog">
+            Ver productos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
+        <!-- PROTOCOLO 04 -->
         <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Imperfecciones y Textura">
+            <img src="assets/portafolio/familia-antiage-glicolmix.jpg" alt="Glicolmix Exfoliante + Clear Skin — Protocolo Imperfecciones SEGLE" loading="lazy" style="object-position:center left;">
+            <span class="protocolo-card__award">iDermo Plata</span>
+          </div>
           <div class="protocolo-card__num" aria-hidden="true">04</div>
           <h3 class="protocolo-card__title">Imperfecciones y Textura</h3>
           <p class="protocolo-card__body">Piel grasa, poros dilatados, acné leve a moderado, manchas post-inflamatorias. Consulta de alta frecuencia en farmacia.</p>
@@ -1836,8 +2168,88 @@
             <li>Glicolmix Exfoliante</li>
             <li>Clear Skin</li>
           </ul>
+          <button class="proto-btn" onclick="openModal('p04')" aria-haspopup="dialog">
+            Ver productos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
         </article>
 
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       GÉNESIS NAD+ — Nueva línea celular
+       Teasear la nueva línea antes del posicionamiento.
+       Productos: Antiox NAD+, Collagen NAD+ (serum + crema)
+       ================================================================ -->
+  <section class="section" id="genesis" style="background:var(--color-crema);" aria-labelledby="genesis-h2">
+    <div class="section__inner">
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center;">
+
+        <!-- Left: copy -->
+        <div>
+          <span class="section-label">Nueva línea · Exclusiva canal</span>
+          <h2 style="font-family:var(--font-display);font-size:clamp(1.9rem,3.2vw,var(--text-3xl));font-weight:300;line-height:var(--lh-heading);letter-spacing:var(--ls-tight);color:var(--color-azul);margin-bottom:var(--space-5);" id="genesis-h2">
+            GÉNESIS NAD+ — La nueva era de la energía celular
+          </h2>
+          <p style="font-size:var(--text-md);line-height:var(--lh-body);color:var(--color-gris-texto);margin-bottom:var(--space-5);">
+            La línea más avanzada de SEGLE. Formulaciones con NAD+ (Nicotinamida Adenina Dinucleótido) — la coenzima central del metabolismo energético celular — para reactivar la bioenergética cutánea desde adentro.
+          </p>
+          <p style="font-size:var(--text-base);line-height:var(--lh-body);color:var(--color-gris-texto);margin-bottom:var(--space-6);">
+            Tres productos. Dos protocolos clínicos. Disponibles exclusivamente para el canal especializado a partir del segundo semestre 2025.
+          </p>
+          <a href="#formulario" class="btn btn-navy">Pre-registro canal NAD+</a>
+        </div>
+
+        <!-- Right: product images 3-up -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:var(--space-3);">
+          <!-- Antiox NAD+ — arriba izquierda, ocupa ambas columnas -->
+          <div style="grid-column:1/-1;border:var(--border-thin);overflow:hidden;aspect-ratio:16/9;background:var(--color-blanco);">
+            <img
+              src="assets/products/antiox-nad-campaign.jpg"
+              alt="SEGLE Antiox NAD+ Facial Serum — Antioxidant Cellular Energy Booster"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            >
+          </div>
+          <!-- Collagen NAD+ Serum -->
+          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+            <img
+              src="assets/products/collagen-nad-serum.jpg"
+              alt="SEGLE Collagen NAD+ Facial Serum — Firming Cellular Energy Booster"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            >
+          </div>
+          <!-- Collagen NAD+ Crema -->
+          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+            <img
+              src="assets/products/collagen-nad-crema.jpg"
+              alt="SEGLE Collagen NAD+ Day/Night Cream — Firming Cellular Energy Booster"
+              loading="lazy"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GÉNESIS video — click to play -->
+      <div class="reveal" style="margin-top:var(--space-10);">
+        <p style="font-size:var(--text-xs);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--color-gris-texto);margin-bottom:var(--space-4);">/ El video</p>
+        <div style="position:relative;padding-bottom:42%;height:0;overflow:hidden;border:var(--border-thin);">
+          <iframe
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+            src="https://www.youtube.com/embed/ChKaUvnhq4U"
+            title="GÉNESIS · THE NEW ERA — SEGLE Biotech Skincare"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
 
     </div>
@@ -1936,13 +2348,13 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              Respuesta en 24 horas hábiles
+              Respuesta en 24–48 horas hábiles
             </li>
             <li class="form__info-item">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
-              segleclinical.com.mx
+              <a href="mailto:ventas@segleclinical.com.mx" style="color:inherit;text-decoration:none;">ventas@segleclinical.com.mx</a>
             </li>
           </ul>
         </div>
@@ -2264,7 +2676,7 @@
               </p>
               <a
                 class="form-thanks__wa"
-                href="https://wa.me/5215574047784?text=Hola%2C%20acabo%20de%20enviar%20una%20solicitud%20y%20quisiera%20más%20información%20sobre%20SEGLE%20Clinical%20México."
+                href="https://wa.me/5215574047784?text=Hola%2C%20acabo%20de%20enviar%20una%20solicitud%20y%20quisiera%20más%20información%20sobre%20SEGLE%20Biotech%20Skincare."
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -2297,8 +2709,415 @@
   </section>
 
   <!-- ================================================================
-       FOOTER — 4 columns navy (Odella pattern)
+       PROCESO — Cómo trabajamos contigo (Odella-inspired)
+       Claridad comercial antes del formulario — reduce fricción
        ================================================================ -->
+  <section class="section section--verde" id="proceso" aria-labelledby="proceso-h2">
+    <div class="section__inner">
+      <div class="reveal">
+        <span class="section-label section-label--light">Cómo trabajamos</span>
+        <h2 class="proceso__h2" id="proceso-h2">Del primer contacto al anaquel en menos de 30 días</h2>
+        <p class="proceso__sub">Un proceso claro, sin intermediarios, con soporte real en cada etapa.</p>
+      </div>
+      <div class="proceso__steps reveal">
+
+        <div class="proceso__step">
+          <div class="proceso__step-num">01</div>
+          <div class="proceso__step-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <h3 class="proceso__step-title">Solicitud de información</h3>
+          <p class="proceso__step-body">Completa el formulario o escríbenos por WhatsApp. Nuestro equipo de canal te contacta en 24–48 h para entender tu perfil.</p>
+        </div>
+
+        <div class="proceso__step">
+          <div class="proceso__step-num">02</div>
+          <div class="proceso__step-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <h3 class="proceso__step-title">Llamada de diagnóstico</h3>
+          <p class="proceso__step-body">Identificamos qué protocolos se alinean mejor con tu perfil de paciente y definimos el portafolio de entrada más estratégico.</p>
+        </div>
+
+        <div class="proceso__step">
+          <div class="proceso__step-num">03</div>
+          <div class="proceso__step-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+          </div>
+          <h3 class="proceso__step-title">Kit de inicio + capacitación</h3>
+          <p class="proceso__step-body">Con el primer pedido: fichas de producto, señalética, testers y sesión de capacitación para todo el equipo del punto de venta.</p>
+        </div>
+
+        <div class="proceso__step">
+          <div class="proceso__step-num">04</div>
+          <div class="proceso__step-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </div>
+          <h3 class="proceso__step-title">Seguimiento activo</h3>
+          <p class="proceso__step-body">Evaluación de rotación a los 30 días, ajustes de portafolio si aplica y acceso anticipado a nuevos lanzamientos como socio activo.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       MODALES DE PRODUCTO — uno por protocolo
+       Se abren desde los botones "Ver productos" del portafolio
+       ================================================================ -->
+
+  <!-- MODAL P01 — Barrera Sensible -->
+  <div class="prod-modal-overlay" id="modal-p01" role="dialog" aria-modal="true" aria-labelledby="modal-p01-title" onclick="closeModalOutside(event,'modal-p01')">
+    <div class="prod-modal">
+      <div class="prod-modal__header">
+        <div>
+          <div class="prod-modal__protocol-num">01</div>
+          <h2 class="prod-modal__title" id="modal-p01-title">Protocolo Barrera Sensible</h2>
+        </div>
+        <button class="prod-modal__close" onclick="closeModal('p01')" aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="prod-modal__body">
+        <div class="prod-tabs" role="tablist">
+          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p01','t1')" role="tab" aria-selected="true">Skin Factor</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p01','t2')" role="tab">Skin Factor Barrier</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p01','t3')" role="tab">Restaura</button>
+        </div>
+        <!-- Tab Skin Factor -->
+        <div class="prod-panel is-active" id="p01-t1" role="tabpanel">
+          <div class="prod-panel__img-slot" aria-label="Foto de producto Skin Factor">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="34" font-size="4" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">SKIN FACTOR</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Skin Factor</div>
+              <div class="prod-panel__size">Sérum · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Sérum reparador de la función barrera cutánea. Formulado para pieles sensibilizadas, reactivas y en recuperación activa post-procedimiento. Activa los mecanismos naturales de regeneración de la piel sin ingredientes que irriten.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Péptidos de señalización celular — activan síntesis de proteínas estructurales</li>
+                <li>Ceramidas biotecnológicas — restauran lípidos de la barrera cutánea</li>
+                <li>Ácido hialurónico de bajo peso molecular — hidratación transepidérmica</li>
+                <li>Extractos calmantes (Bisabolol, Pantenol) — reducen reactividad</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Resultado esperado:</strong> En 7–14 días, reducción visible de enrojecimiento reactivo, mejora en textura y comodidad al tacto. En 30 días, barrera funcional restaurada.
+            </div>
+          </div>
+        </div>
+        <!-- Tab Skin Factor Barrier -->
+        <div class="prod-panel" id="p01-t2" role="tabpanel">
+          <div class="prod-panel__img-slot" aria-label="Foto de producto Skin Factor Barrier">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="32" font-size="3.5" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">SKIN FACTOR</text><text x="20" y="38" font-size="3.5" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">BARRIER</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Skin Factor Barrier</div>
+              <div class="prod-panel__size">Crema selladora · 50 ml</div>
+            </div>
+            <p class="prod-panel__desc">Crema de sellado y protección para pieles con barrera comprometida. Aplica sobre Skin Factor para fijar los activos y crear una película protectora. Especialmente indicada para rosácea en fase de mantenimiento y piel bajo tratamiento médico agresivo.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Complejos lipídicos oclusivos — forman película protectora sin bloquear poros</li>
+                <li>Prebióticos cutáneos — equilibran microbiota de piel sensible</li>
+                <li>Silicio orgánico — aporta elasticidad y confort</li>
+                <li>Sin fragancia · Sin alcohol · Sin parabenos</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Perfil ideal:</strong> Paciente post-láser, post-peeling, con rosácea activa o bajo medicación tópica agresiva (ácido retinoico de prescripción, antibióticos tópicos).
+            </div>
+          </div>
+        </div>
+        <!-- Tab Restaura -->
+        <div class="prod-panel" id="p01-t3" role="tabpanel">
+          <div class="prod-panel__img-slot" aria-label="Foto de producto Restaura">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="34" font-size="4" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">RESTAURA</text></svg>
+            <span class="prod-panel__award-badge">iDermo Bronce 2019</span>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Restaura</div>
+              <div class="prod-panel__size">Sérum 30 ml / Crema 50 ml</div>
+            </div>
+            <p class="prod-panel__desc">Sérum de hidratación profunda y acción antiarrugas con efecto Btx-like. Gran poder de hidratación profunda con propiedades antioxidantes y protectoras. Coadyuvante ideal después de aplicación de toxina botulínica.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Argirelox® + Argireline® — péptidos Btx-like, efecto tensor</li>
+                <li>Ácido hialurónico (bajo + medio peso molecular)</li>
+                <li>Colágeno marino hidrolizado — compatible con células dérmicas</li>
+                <li>Isoflavonas de soya liposomadas — acción antioxidante y estrogénica</li>
+                <li>Aloe Vera + Vitamina E</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Premio iDermo 2019 Bronce.</strong> Producto puerta de entrada recomendado para nuevos pacientes de la marca — funciona en casi todo tipo de piel con resultados visibles en la primera semana.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL P02 — Antiage Avanzado -->
+  <div class="prod-modal-overlay" id="modal-p02" role="dialog" aria-modal="true" aria-labelledby="modal-p02-title" onclick="closeModalOutside(event,'modal-p02')">
+    <div class="prod-modal">
+      <div class="prod-modal__header">
+        <div>
+          <div class="prod-modal__protocol-num">02</div>
+          <h2 class="prod-modal__title" id="modal-p02-title">Protocolo Antiage Avanzado</h2>
+        </div>
+        <button class="prod-modal__close" onclick="closeModal('p02')" aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="prod-modal__body">
+        <div class="prod-tabs" role="tablist">
+          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p02','t1')" role="tab">DMAE Lift 10</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p02','t2')" role="tab">Pure Retinol</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p02','t3')" role="tab">Tinolvital</button>
+        </div>
+        <div class="prod-panel is-active" id="p02-t1" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="32" font-size="3.8" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">DMAE LIFT 10</text></svg>
+            <span class="prod-panel__award-badge">iDermo Oro 2020</span>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">DMAE Lift 10</div>
+              <div class="prod-panel__size">Sérum 30 ml (pieles mixtas-grasas) / Crema 50 ml (pieles normales-secas)</div>
+            </div>
+            <p class="prod-panel__desc">Poderoso reafirmante con efecto lifting inmediato y de efecto progresivo. Aporta elasticidad, flexibilidad e hidratación. Remodela el óvalo facial y contrarresta la pérdida de densidad de la dermis.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>DMAE 10% — precursor de acetilcolina, tensor muscular cutáneo</li>
+                <li>Extracto de alga Haematococcus pluvialis — astaxantina, potente antioxidante</li>
+                <li>Extracto de acacia amarilla + raíz de achicoria — efecto flash tensor</li>
+                <li>Extracto de raíz de maral + azufaifo — firmeza progresiva</li>
+                <li>En crema: +Silicio orgánico, Manteca de karité, Vitamina E</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Premio iDermo 2020 Oro.</strong> Efecto tensor observable desde los primeros días de uso. Resultado acumulativo notable a partir de la semana 3–4. Apto para aplicación en óvalo, cuello y escote.
+            </div>
+          </div>
+        </div>
+        <div class="prod-panel" id="p02-t2" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="32" font-size="3.5" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">PURE RETINOL</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Pure Retinol</div>
+              <div class="prod-panel__size">Sérum nocturno · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Retinol encapsulado de alta pureza. La encapsulación lipídica permite liberar el activo de forma progresiva, generando el resultado del retinol convencional con significativamente menor riesgo de irritación.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Retinol encapsulado — renovación celular acelerada con menor irritación</li>
+                <li>Tecnología de liberación gradual — período de adaptación reducido</li>
+                <li>Activos calmantes complementarios — minimizan la irritación inicial</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Indicación en mostrador:</strong> "Este retinol está encapsulado — da el resultado del retinol pero con mucho menos irritación. Empiece 2–3 veces a la semana y va subiendo. Siempre protector solar en la mañana."
+            </div>
+          </div>
+        </div>
+        <div class="prod-panel" id="p02-t3" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="34" font-size="4" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">TINOLVITAL</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Tinolvital</div>
+              <div class="prod-panel__size">Sérum nocturno · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Alternativa al retinol para pieles sensibles. Actúa sobre los mismos receptores celulares que el retinol pero por una ruta bioquímica diferente, sin el período de adaptación ni la irritación característica.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Bakuchiol + extractos de origen biotecnológico — retinol-like sin irritación</li>
+                <li>Acción renovadora en mismos receptores que retinol (RAR, RXR)</li>
+                <li>Compatible con uso desde el primer día — sin período de adaptación</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Para paciente que dice:</strong> "Soy muy sensible, el retinol me irrita." Tinolvital hace lo mismo que el retinol pero sin la irritación. Puede empezar diario desde el primer día.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL P03 — Piel Urbana -->
+  <div class="prod-modal-overlay" id="modal-p03" role="dialog" aria-modal="true" aria-labelledby="modal-p03-title" onclick="closeModalOutside(event,'modal-p03')">
+    <div class="prod-modal">
+      <div class="prod-modal__header">
+        <div>
+          <div class="prod-modal__protocol-num">03</div>
+          <h2 class="prod-modal__title" id="modal-p03-title">Protocolo Piel Urbana / Pantallas</h2>
+        </div>
+        <button class="prod-modal__close" onclick="closeModal('p03')" aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="prod-modal__body">
+        <div class="prod-tabs" role="tablist">
+          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p03','t1')" role="tab">Blue Balance Sérum</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p03','t2')" role="tab">Blue Balance Gel Crema</button>
+        </div>
+        <div class="prod-panel is-active" id="p03-t1" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="32" font-size="3.5" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">BLUE BALANCE</text><text x="20" y="38" font-size="3" text-anchor="middle" fill="#6B6B6B" font-family="Montserrat,sans-serif" letter-spacing="0.5">SÉRUM</text></svg>
+            <span class="prod-panel__award-badge">iDermo Bronce 2023</span>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Blue Balance Sérum</div>
+              <div class="prod-panel__size">Sérum · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Tratamiento de hidratación profunda que potencia la síntesis del ácido hialurónico. Con acción antioxidante, calmante, seborreguladora y anti-inflamatoria. Protección específica contra la luz azul de dispositivos electrónicos.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Ácido hialurónico + Glucosamina — hidratación en profundidad</li>
+                <li>Extracto de alga Spirulina máxima — protección contra luz azul</li>
+                <li>Niacinamida 5% — seborregulador, antimancha, barrera</li>
+                <li>Gluconolactona — exfoliante suave PHA</li>
+                <li>Prebióticos + Postbióticos (Bifidobacterium ferment lysate) — microbioma</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Premio iDermo 2023 Bronce.</strong> En 3–4 semanas: mejora perceptible en equilibrio de tono, reducción de irritación basal, mayor luminosidad. Diferencia más notable a las 6 semanas.
+            </div>
+          </div>
+        </div>
+        <div class="prod-panel" id="p03-t2" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="32" font-size="3.5" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">BLUE BALANCE</text><text x="20" y="38" font-size="3" text-anchor="middle" fill="#6B6B6B" font-family="Montserrat,sans-serif" letter-spacing="0.5">GEL CREMA</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Blue Balance Gel Crema</div>
+              <div class="prod-panel__size">Gel Crema Airless · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Versión textura gel-crema del protocolo Blue Balance. Misma base de activos biotecnológicos añadiendo activos matificantes y Aloe Vera. Textura específica para pieles mixtas-grasas que no toleran texturas ricas.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos adicionales</p>
+              <ul class="prod-panel__activos">
+                <li>Activos matificantes — control de sebo sin resecar</li>
+                <li>Aloe Vera — acción calmante y antiinflamatoria</li>
+                <li>Misma base de prebióticos + postbióticos que el sérum</li>
+                <li>Textura gel: ideal para pieles mixtas a grasas o clima cálido</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Diferencia con el sérum:</strong> mismos activos, diferente textura. Sérum para pieles normales-mixtas que quieren capas. Gel Crema como paso único para pieles grasas o en clima húmedo.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL P04 — Imperfecciones y Textura -->
+  <div class="prod-modal-overlay" id="modal-p04" role="dialog" aria-modal="true" aria-labelledby="modal-p04-title" onclick="closeModalOutside(event,'modal-p04')">
+    <div class="prod-modal">
+      <div class="prod-modal__header">
+        <div>
+          <div class="prod-modal__protocol-num">04</div>
+          <h2 class="prod-modal__title" id="modal-p04-title">Protocolo Imperfecciones y Textura</h2>
+        </div>
+        <button class="prod-modal__close" onclick="closeModal('p04')" aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="prod-modal__body">
+        <div class="prod-tabs" role="tablist">
+          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p04','t1')" role="tab">Glicolmix</button>
+          <button class="prod-tab-btn" onclick="switchTab(event,'p04','t2')" role="tab">Clear Skin</button>
+        </div>
+        <div class="prod-panel is-active" id="p04-t1" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="34" font-size="3.8" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">GLICOLMIX</text></svg>
+            <span class="prod-panel__award-badge">iDermo Plata 2024</span>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Glicolmix Exfoliante</div>
+              <div class="prod-panel__size">Exfoliante químico · 30 ml · pH 3.5</div>
+            </div>
+            <p class="prod-panel__desc">Exfoliante químico suave formulado con 20% de AHA's. Activa la renovación celular, detoxifica, despigmenta, unifica el tono e ilumina. Suaviza arrugas y prepara la piel para tratamientos posteriores.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Ácido glicólico 15% — exfoliante de mayor penetración y eficacia</li>
+                <li>Ácido láctico 4% — exfoliante suave + hidratante natural</li>
+                <li>Ácido cítrico 1% — antioxidante + regulador de pH</li>
+                <li>Mantiene el pH de la piel en 5.5</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Premio iDermo 2024 Plata.</strong> Uso nocturno, 1–2 veces/semana. En 2 semanas: mejora visible en textura y poros. No aplicar en pieles intolerantes, con telangiectasias o reactivas. Siempre SPF en la mañana.
+            </div>
+          </div>
+        </div>
+        <div class="prod-panel" id="p04-t2" role="tabpanel">
+          <div class="prod-panel__img-slot">
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none"><rect x="4" y="2" width="32" height="50" stroke="#C9A84C" stroke-width="0.8" fill="none"/><rect x="12" y="0" width="16" height="5" stroke="#C9A84C" stroke-width="0.7" fill="none"/><text x="20" y="34" font-size="4" text-anchor="middle" fill="#0D1B3E" font-family="Montserrat,sans-serif" font-weight="700" letter-spacing="0.5">CLEAR SKIN</text></svg>
+            <span class="prod-panel__img-label">Slot de imagen<br>de producto</span>
+          </div>
+          <div class="prod-panel__info">
+            <div>
+              <div class="prod-panel__name">Clear Skin</div>
+              <div class="prod-panel__size">Sérum / Gel · 30 ml</div>
+            </div>
+            <p class="prod-panel__desc">Tratamiento de control de sebo, antimancha y antibacteriano con activos de alta evidencia clínica. Formulado específicamente para acné leve a moderado y manchas post-inflamatorias (PIH) con enfoque en microbioma.</p>
+            <div>
+              <p class="prod-panel__section-title">Activos clave</p>
+              <ul class="prod-panel__activos">
+                <li>Ácido azelaico 10% biotech — gold standard para PIH, antibacteriano</li>
+                <li>Niacinamida — seborregulador + antimancha + barrera</li>
+                <li>Zinc PCA — control de sebo + antibacteriano</li>
+                <li>Componente prebiótico — no desequilibra microbioma (diferencial vs. tratamientos convencionales)</li>
+              </ul>
+            </div>
+            <div class="prod-panel__result">
+              <strong>Ventaja vs. Effaclar:</strong> "El azelaico al 10% de Clear Skin tiene mucha más evidencia para las manchas que deja el acné. Y el componente prebiótico hace que no desequilibre el microbioma, que es lo que pasa con muchos tratamientos convencionales."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN MODALES ============================================= -->
   <footer class="footer" role="contentinfo">
     <div class="footer__inner">
 
@@ -2335,10 +3154,32 @@
         <div>
           <span class="footer__col-title">Contacto</span>
           <ul class="footer__nav-list">
-            <li><a href="https://www.segleclinical.com.mx" target="_blank" rel="noopener noreferrer">segleclinical.com.mx</a></li>
-            <li><a href="#">Ciudad de México</a></li>
-            <li><a href="#">Operación nacional</a></li>
-            <li><a href="#">Instagram</a></li>
+            <li class="form__info-item" style="gap:0.5rem;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0;color:var(--color-dorado)">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <a href="mailto:ventas@segleclinical.com.mx">ventas@segleclinical.com.mx</a>
+            </li>
+            <li class="form__info-item" style="gap:0.5rem;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0;color:var(--color-dorado)">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <a href="#">Ciudad de México · Nacional</a>
+            </li>
+            <!-- Instagram -->
+            <li class="form__info-item" style="gap:0.5rem;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0;color:var(--color-dorado)">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              <a href="https://www.instagram.com/segle_mexico/" target="_blank" rel="noopener noreferrer">@segle_mexico</a>
+            </li>
+            <!-- LinkedIn -->
+            <li class="form__info-item" style="gap:0.5rem;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0;color:var(--color-dorado)">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+              <a href="https://www.linkedin.com/company/segle-mexico/" target="_blank" rel="noopener noreferrer">SEGLE México</a>
+            </li>
           </ul>
         </div>
 
@@ -2346,7 +3187,7 @@
 
       <div class="footer__bottom">
         <p class="footer__legal">
-          © 2025 Segle Clinical México · Cosmeceutical Lab México, S.A. DE C.V. · Todos los derechos reservados
+          © 2025 SEGLE Biotech Skincare · Cosmeceutical Lab México, S.A. DE C.V. · Todos los derechos reservados
         </p>
         <p class="footer__cofepris">COFEPRIS 223300519X2864</p>
       </div>
@@ -2361,7 +3202,7 @@
        ================================================================ -->
   <a
     class="wa-fab"
-    href="https://wa.me/5215574047784?text=Hola%2C%20me%20interesa%20información%20sobre%20el%20canal%20especializado%20de%20SEGLE%20Clinical%20México."
+    href="https://wa.me/5215574047784?text=Hola%2C%20me%20interesa%20información%20sobre%20el%20canal%20especializado%20de%20SEGLE%20Biotech%20Skincare."
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Contactar por WhatsApp al +52 155 7404 7784"
@@ -2416,7 +3257,54 @@
 
     revealEls.forEach(el => revealObserver.observe(el));
 
-    // ── ZOHO CRM — iframe submit capture + gracias inline ─────────
+    // ── PRODUCT MODALS ────────────────────────────────────────────
+    function openModal(id) {
+      const overlay = document.getElementById('modal-' + id);
+      if (!overlay) return;
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      // Focus the close button for accessibility
+      overlay.querySelector('.prod-modal__close').focus();
+    }
+
+    function closeModal(id) {
+      const overlay = document.getElementById('modal-' + id);
+      if (!overlay) return;
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(event, id) {
+      // Close only if click is on the overlay, not the modal card
+      if (event.target === document.getElementById('modal-' + id)) {
+        closeModal(id);
+      }
+    }
+
+    function switchTab(event, protocolId, tabId) {
+      const modal = document.getElementById('modal-' + protocolId);
+      // Deactivate all tabs + panels in this modal
+      modal.querySelectorAll('.prod-tab-btn').forEach(btn => {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      modal.querySelectorAll('.prod-panel').forEach(panel => panel.classList.remove('is-active'));
+      // Activate clicked tab + corresponding panel
+      event.target.classList.add('is-active');
+      event.target.setAttribute('aria-selected', 'true');
+      const panel = document.getElementById(protocolId + '-' + tabId);
+      if (panel) panel.classList.add('is-active');
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.prod-modal-overlay.is-open').forEach(o => {
+          const id = o.id.replace('modal-', '');
+          closeModal(id);
+        });
+      }
+    });
     //
     // CÓMO FUNCIONA:
     // 1. El JS busca el <form> dentro de #zoho-form-zone
