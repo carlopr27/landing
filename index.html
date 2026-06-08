@@ -894,7 +894,11 @@
       max-width: 520px;
     }
 
-    .comp-table-wrap { overflow-x: auto; }
+    .comp-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    @media (max-width: 768px) {
+      .comp-table th, .comp-table td { font-size: 0.65rem; padding: 0.4rem 0.5rem; white-space: nowrap; }
+      .comp-table th:first-child, .comp-table td:first-child { position: sticky; left: 0; background: inherit; z-index: 1; }
+    }
 
     .comp-table {
       width: 100%;
@@ -2172,7 +2176,7 @@
             </svg>
           </div>
           <h3 class="beneficio-card__title">Margen diferenciado</h3>
-          <p class="beneficio-card__body">30–45% de margen para el canal especializado. Recompra predecible cada 45–60 días. Un paciente fidelizado en el protocolo antiage puede representar entre ,000 y ,000 MXN anuales en el mismo punto de venta.</p>
+          <p class="beneficio-card__body">30–45% de margen para el canal especializado. Recompra predecible cada 45–60 días.</p>
         </article>
 
         <article class="beneficio-card reveal reveal-delay-3" role="listitem">
@@ -2231,7 +2235,7 @@
       <div class="portafolio__grid reveal" role="list">
 
         <!-- PROTOCOLO 01 -->
-        <article class="protocolo-card" role="listitem">
+        <article class="protocolo-card" role="listitem" onclick="openModal('p02')" style="cursor:pointer;" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openModal('p02')">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Antiage Avanzado">
             <img src="assets/protocolo-01-antiage.jpg" alt="Protocolo Antiage Avanzado — DMAE Lift10, Pure Retinol, Tinolvital" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:var(--color-dorado);">iDermo Oro 2020</span>
@@ -2249,7 +2253,7 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
-        <article class="protocolo-card" role="listitem">
+        <article class="protocolo-card" role="listitem" onclick="openModal('p04')" style="cursor:pointer;" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openModal('p04')">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Imperfecciones y Textura">
             <img src="assets/protocolo-02-imperfecciones.jpg" alt="Protocolo Imperfecciones y Textura — Glicolmix, Clear Azelaic" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:#999;">iDermo Plata 2024</span>
@@ -2266,7 +2270,7 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
-        <article class="protocolo-card" role="listitem">
+        <article class="protocolo-card" role="listitem" onclick="openModal('p03')" style="cursor:pointer;" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openModal('p03')">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Piel Urbana / Pantallas">
             <img src="assets/protocolo-03-urbana.jpg" alt="Protocolo Piel Urbana / Pantallas — Blue Balance Sérum y Gel" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:var(--pantone-teal-2);">iDermo Bronce 2023</span>
@@ -2283,7 +2287,7 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
-        <article class="protocolo-card" role="listitem">
+        <article class="protocolo-card" role="listitem" onclick="openModal('p01')" style="cursor:pointer;" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openModal('p01')">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Barrera Sensible">
             <img src="assets/protocolo-04-barrera.jpg" alt="Protocolo Barrera Sensible — Skin Factor, Skin Factor Barrier, Restaura" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
           </div>
@@ -3480,6 +3484,8 @@
       a.addEventListener('click', () => {
         navLinks.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
+        // Also close any open submenus
+        document.querySelectorAll('.nav__item.is-open').forEach(i => i.classList.remove('is-open'));
       });
     });
 
@@ -3497,12 +3503,17 @@
         if (!trigger) return;
 
         trigger.addEventListener('click', (e) => {
-          e.preventDefault(); // abrir submenú, no navegar al anchor del padre
           const isOpen = item.classList.contains('is-open');
+          if (isOpen) {
+            // Second tap: navigate to parent section
+            item.classList.remove('is-open');
+            // Allow default navigation (href)
+            return;
+          }
+          e.preventDefault(); // First tap: open submenu
           // Cerrar todos los demás submenús
           allNavItems.forEach(i => i.classList.remove('is-open'));
-          // Abrir este si estaba cerrado
-          if (!isOpen) item.classList.add('is-open');
+          item.classList.add('is-open');
         });
       });
 
