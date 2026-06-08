@@ -203,7 +203,7 @@
 
     /* Section container */
     .section {
-      padding: var(--space-8) var(--page-pad);
+      padding: var(--space-6) var(--page-pad);
     }
     .section__inner {
       max-width: var(--max-width);
@@ -248,7 +248,7 @@
     .nav__inner {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: var(--space-3) var(--page-pad);
+      padding: var(--space-2) var(--page-pad);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -392,7 +392,7 @@
         background: var(--color-blanco);
         flex-direction: column;
         align-items: flex-start;
-        padding: var(--space-3) var(--page-pad);
+        padding: var(--space-2) var(--page-pad);
         border-bottom: var(--border-thin);
         gap: 0;
       }
@@ -409,7 +409,7 @@
        ================================================================ */
     .hero {
       background: var(--color-azul);
-      padding: clamp(2rem, 4vw, 3rem) var(--page-pad) clamp(1.5rem, 3vw, 2.5rem);
+      padding: 1.2rem var(--page-pad) 1.2rem;
       position: relative;
       overflow: hidden;
     }
@@ -469,7 +469,7 @@
 
     .hero__h1 {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 400;
       line-height: var(--lh-tight);
       letter-spacing: var(--ls-tight);
@@ -482,10 +482,10 @@
     }
 
     .hero__sub {
-      font-size: var(--text-md);
+      font-size: var(--text-base);
       line-height: var(--lh-body);
       color: rgba(255,255,255,0.65);
-      margin-bottom: var(--space-7);
+      margin-bottom: var(--space-5);
       max-width: 460px;
     }
 
@@ -499,14 +499,14 @@
     .hero__stats {
       display: flex;
       gap: var(--space-7);
-      margin-top: var(--space-8);
-      padding-top: var(--space-6);
+      margin-top: var(--space-5);
+      padding-top: var(--space-4);
       border-top: 1px solid rgba(255,255,255,0.12);
       flex-wrap: wrap;
     }
     .hero__stat-value {
       font-family: var(--font-display);
-      font-size: var(--text-2xl);
+      font-size: var(--text-xl);
       font-weight: var(--fw-regular);
       color: var(--color-dorado);
       line-height: 1;
@@ -532,7 +532,7 @@
     .hero__product-frame {
       width: 100%;
       max-width: 420px;
-      aspect-ratio: 3/4;
+      aspect-ratio: 4/3;
       border: var(--border-dorado);
       background: rgba(255,255,255,0.03);
       display: flex;
@@ -586,7 +586,7 @@
     .trust-bar {
       background: var(--color-crema);
       border-bottom: var(--border-thin);
-      padding: var(--space-3) var(--page-pad);
+      padding: var(--space-2) var(--page-pad);
     }
     .trust-bar__inner {
       max-width: var(--max-width);
@@ -768,7 +768,7 @@
     .portafolio__intro {
       font-size: var(--text-md);
       color: var(--color-gris-texto);
-      max-width: 560px;
+      max-width: none;
       line-height: var(--lh-body);
     }
 
@@ -1576,41 +1576,46 @@
     .prod-modal__body { padding: var(--space-4) var(--space-5); }
 
     /* Product tabs */
-    .prod-tabs {
-      display: flex;
+    /* Tab CSS hidden — replaced by carousel */
+    .prod-tabs { display: none; }
+    .prod-tab-btn { display: none; }
+
+    /* ── MODAL CAROUSEL ──────────────────────────────────────── */
+    .prod-carousel-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-4); padding: var(--space-2) 0;
       border-bottom: var(--border-thin);
-      margin-bottom: var(--space-6);
-      gap: 0;
-      overflow-x: auto;
     }
-    .prod-tab-btn {
-      font-family: var(--font-brand);
-      font-size: var(--text-xs);
-      font-weight: var(--fw-bold);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-gris-texto);
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      padding: var(--space-3) var(--space-5);
-      cursor: pointer;
-      transition: color var(--t-fast), border-color var(--t-fast);
-      white-space: nowrap;
+    .prod-carousel-dots { display: flex; gap: 6px; align-items: center; }
+    .prod-carousel-dot {
+      width: 7px; height: 7px; background: var(--color-gris-linea);
+      border-radius: 50%; cursor: pointer; border: none; padding: 0;
+      transition: background var(--t-fast), transform var(--t-fast);
     }
-    .prod-tab-btn:hover { color: var(--color-azul); }
-    .prod-tab-btn.is-active {
-      color: var(--color-azul);
-      border-bottom-color: var(--color-dorado);
+    .prod-carousel-dot.is-active { background: var(--color-dorado); transform: scale(1.4); }
+    .prod-carousel-btn {
+      background: none; border: 1px solid var(--color-gris-linea);
+      width: 32px; height: 32px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--color-azul); line-height: 1;
+      transition: background var(--t-fast), border-color var(--t-fast);
+    }
+    .prod-carousel-btn:hover { background: var(--color-crema); border-color: var(--color-azul); }
+    .prod-carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .prod-carousel-label {
+      font-size: 0.68rem; font-weight: var(--fw-bold);
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-azul);
     }
 
+    
     .prod-panel { display: none; }
-    .prod-panel.is-active { display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-4); }
+    .prod-panel.is-active { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-4); align-items: start; }
 
     .prod-panel__img-slot {
       background: var(--color-crema);
       border: var(--border-thin);
-      aspect-ratio: 4/5;
+      aspect-ratio: 3/4;
+      max-height: 240px;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       gap: var(--space-3);
@@ -1629,10 +1634,10 @@
       font-weight: var(--fw-bold);
     }
 
-    .prod-panel__info { display: flex; flex-direction: column; gap: var(--space-4); }
+    .prod-panel__info { display: flex; flex-direction: column; gap: var(--space-3); }
     .prod-panel__name {
       font-family: var(--font-display);
-      font-size: var(--text-xl);
+      font-size: var(--text-lg);
       font-weight: var(--fw-regular);
       color: var(--color-azul);
       margin-bottom: var(--space-1);
@@ -1642,7 +1647,7 @@
       letter-spacing: var(--ls-wide); color: var(--color-gris-texto);
     }
     .prod-panel__desc {
-      font-size: var(--text-sm); line-height: var(--lh-body);
+      font-size: 0.8rem; line-height: 1.55;
       color: var(--color-gris-texto);
     }
     .prod-panel__section-title {
@@ -1652,12 +1657,12 @@
     }
     .prod-panel__activos {
       list-style: none; display: flex; flex-direction: column;
-      gap: var(--space-2);
+      gap: 4px;
     }
     .prod-panel__activos li {
-      font-size: var(--text-xs); color: var(--color-gris-texto);
-      padding-left: var(--space-4); border-left: 2px solid var(--color-dorado);
-      line-height: 1.5;
+      font-size: 0.72rem; color: var(--color-gris-texto);
+      padding-left: var(--space-3); border-left: 2px solid var(--color-dorado);
+      line-height: 1.4;
     }
     .prod-panel__result {
       background: rgba(13,27,62,0.04);
@@ -1670,6 +1675,7 @@
 
     @media (max-width: 600px) {
       .prod-panel.is-active { grid-template-columns: 1fr; }
+      .prod-panel__img-slot { aspect-ratio: 4/3; max-height: 180px; }
       .prod-modal__header { padding: var(--space-5); }
       .prod-modal__body { padding: var(--space-4) var(--space-5); }
     }
@@ -1870,33 +1876,39 @@
       </a>
 
       <ul class="nav__links" id="nav-links" role="list">
-        <!-- Quiénes somos — submenu -->
-        <li class="nav__item">
-          <a href="#identidad">Quiénes somos <span class="nav__arrow" aria-hidden="true">▾</span></a>
-          <ul class="nav__sub" aria-label="Quiénes somos">
-            <li><a href="#identidad">Nuestra historia + Biotecnología<span class="sub-label">Origen Barcelona · biotec azul + verde</span></a></li>
-            
-          </ul>
-        </li>
-        <!-- Portafolio — submenu -->
-        <li class="nav__item">
-          <a href="#portafolio">Portafolio <span class="nav__arrow" aria-hidden="true">▾</span></a>
-          <ul class="nav__sub" aria-label="Portafolio de productos">
-            <li><a href="#portafolio">Protocolos clínicos<span class="sub-label">4 líneas · 7 SKUs héroe</span></a></li>
-            <li><a href="#genesis">GÉNESIS NAD+<span class="sub-label">Nueva línea · Canal exclusivo</span></a></li>
-            <li><a href="#posicionamiento">Posicionamiento<span class="sub-label">Vs. competencia</span></a></li>
-          </ul>
-        </li>
-        <!-- Canal — submenu -->
-        <li class="nav__item">
-          <a href="#canal">Canal <span class="nav__arrow" aria-hidden="true">▾</span></a>
-          <ul class="nav__sub" aria-label="Canal especializado">
-            <li><a href="#canal">Por qué SEGLE<span class="sub-label">Beneficios para tu negocio</span></a></li>
-            <li><a href="#proceso">Proceso de entrada<span class="sub-label">4 pasos · 30 días</span></a></li>
-            <li><a href="#formulario">Solicitar información y muestras médicas<span class="sub-label">Respuesta 24-48 h</span></a></li>
-          </ul>
-        </li>
-        <li><a href="#formulario" class="nav__b2b">Solicitar información y muestras médicas</a></li>
+          <!-- Quiénes somos -->
+          <li class="nav__item">
+            <a href="#identidad">Quiénes somos <span class="nav__arrow" aria-hidden="true">▾</span></a>
+            <ul class="nav__sub" aria-label="Quiénes somos">
+              <li><a href="#identidad">Nuestra historia<span class="sub-label">Origen Barcelona · biotec azul + verde</span></a></li>
+              <li><a href="#canal">Por qué SEGLE en tu canal<span class="sub-label">Beneficios · margen · soporte</span></a></li>
+              <li><a href="#proceso">Cómo trabajamos<span class="sub-label">Del contacto al anaquel</span></a></li>
+            </ul>
+          </li>
+          <!-- Portafolio -->
+          <li class="nav__item">
+            <a href="#portafolio">Portafolio <span class="nav__arrow" aria-hidden="true">▾</span></a>
+            <ul class="nav__sub" aria-label="Portafolio">
+              <li><a href="#portafolio">Protocolos clínicos<span class="sub-label">4 protocolos · 7 SKUs héroe</span></a></li>
+              <li><a href="#genesis">GÉNESIS NAD+<span class="sub-label">Nueva línea celular · canal exclusivo</span></a></li>
+              <li><a href="#posicionamiento">Posicionamiento<span class="sub-label">Vs. competencia dermo</span></a></li>
+            </ul>
+          </li>
+          <!-- Canal -->
+          <li class="nav__item">
+            <a href="#formulario">Canal <span class="nav__arrow" aria-hidden="true">▾</span></a>
+            <ul class="nav__sub" aria-label="Canal especializado">
+              <li><a href="#proceso">Cómo trabajamos<span class="sub-label">4 pasos · 30 días</span></a></li>
+              <li><a href="#formulario">Solicitar información<span class="sub-label">Respuesta 24–48 h</span></a></li>
+            </ul>
+          </li>
+          <!-- Vademecum -->
+          <li><a href="assets/vademecum-segle.pdf" target="_blank" rel="noopener noreferrer" download
+                 style="font-size:var(--text-xs);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:0.06em;color:var(--color-verde);text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;padding:2px 0;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Vademecum
+          </a></li>
+          <li><a href="#formulario" class="nav__b2b">Solicitar info y muestras médicas</a></li>
       </ul>
 
       <button
@@ -1964,7 +1976,7 @@
       <div class="hero__visual" aria-hidden="true">
         <div class="hero__product-frame">
           <img
-            src="assets/product-family.jpg"
+            src="assets/home_home.png"
             alt="Portafolio de productos SEGLE Biotech Skincare"
             loading="eager"
             style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -2030,6 +2042,8 @@
           <h2 class="identidad__h2" id="identidad-h2">
             Laboratorio español de I+D+I con estándares de industria farmacéutica
           </h2>
+          <!-- Nuestra historia subsection label -->
+          <p style="font-size:var(--text-xs);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--color-dorado);margin-bottom:var(--space-3);margin-top:var(--space-2);">/ Nuestra historia</p>
           <p class="identidad__body">
             SEGLE Biotech Skincare nació en Barcelona dentro de la industria farmacéutica europea — no es una marca cosmética reconvertida. Es cosmética <strong>formulada con metodología farmacéutica</strong>: el activo correcto, en concentración clínicamente relevante, con estabilidad comprobada durante toda la vida útil del producto. Esas tres condiciones son el punto de partida, no el objetivo.
           </p>
@@ -2186,7 +2200,7 @@
         <!-- PROTOCOLO 01 -->
         <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Antiage Avanzado">
-            <img src="assets/familia-antiage-glicolmix.jpg" alt="DMAE Lift10 + Vital C + Triple Retinoid — Protocolo Antiage SEGLE" loading="lazy" style="object-position:center right;">
+            <img src="assets/protocolo-01-antiage.jpg" alt="Protocolo Antiage Avanzado — DMAE Lift10, Pure Retinol, Tinolvital" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:var(--color-dorado);">iDermo Oro 2020</span>
           </div>
           <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(185,128,208,0.25);">01</div>
@@ -2204,7 +2218,7 @@
         </article>
         <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Imperfecciones y Textura">
-            <img src="assets/familia-antiage-glicolmix.jpg" alt="Glicolmix Exfoliante + Clear Skin — Protocolo Imperfecciones SEGLE" loading="lazy" style="object-position:center left;">
+            <img src="assets/protocolo-02-imperfecciones.jpg" alt="Protocolo Imperfecciones y Textura — Glicolmix, Clear Azelaic" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:#999;">iDermo Plata 2024</span>
           </div>
           <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(255,127,64,0.25);">02</div>
@@ -2221,7 +2235,7 @@
         </article>
         <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Piel Urbana / Pantallas">
-            <img src="assets/familia-skin-factor-blue-balance.jpg" alt="Blue Balance Sérum + Blue Balance Gel Crema — Protocolo Piel Urbana SEGLE" loading="lazy" style="object-position:center right;">
+            <img src="assets/protocolo-03-urbana.jpg" alt="Protocolo Piel Urbana / Pantallas — Blue Balance Sérum y Gel" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
             <span class="protocolo-card__award" style="background:var(--pantone-teal-2);">iDermo Bronce 2023</span>
           </div>
           <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(58,141,222,0.25);">03</div>
@@ -2238,7 +2252,7 @@
         </article>
         <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Barrera Sensible">
-            <img src="assets/familia-skin-factor-blue-balance.jpg" alt="Skin Factor + Skin Factor Barrier + Vital C — Protocolo Barrera Sensible SEGLE" loading="lazy" style="object-position:center left;">
+            <img src="assets/protocolo-04-barrera.jpg" alt="Protocolo Barrera Sensible — Skin Factor, Skin Factor Barrier, Restaura" loading="lazy" style="object-fit:cover;width:100%;height:100%;">
           </div>
           <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(40,181,144,0.25);">04</div>
           <h3 class="protocolo-card__title">Barrera Sensible</h3>
@@ -2471,9 +2485,8 @@
 
         <!-- ── COLLAGEN NAD+ SÉRUM + CREMA ─────────────────────── -->
         <article class="nad-card collagen">
-          <div class="nad-card-img nad-collagen-gallery">
-            <img src="assets/collagen-nad-serum.jpeg" alt="Collagen NAD+ Sérum — SEGLE" loading="lazy">
-            <img src="assets/collagen-nad-crema.jpeg" alt="Collagen NAD+ Crema — SEGLE" loading="lazy">
+          <div class="nad-card-img">
+            <img src="assets/collagen-pair-ficha.jpg" alt="Collagen NAD+ Sérum &amp; Crema — SEGLE Biotech Skincare" loading="lazy" onerror="this.onerror=null;this.src='assets/collagen-nad-serum.jpeg'">
           </div>
           <div class="nad-card-info">
             <span class="nad-badge collagen">Firmeza pro-colágeno</span>
@@ -3039,18 +3052,21 @@
     <div class="prod-modal">
       <div class="prod-modal__header">
         <div>
-          <div class="prod-modal__protocol-num">01</div>
-          <h2 class="prod-modal__title" id="modal-p01-title">Protocolo Barrera Sensible</h2>
+          <div class="prod-modal__protocol-num">02</div>
+          <h2 class="prod-modal__title" id="modal-p01-title">04 · Protocolo Barrera Sensible</h2>
         </div>
         <button class="prod-modal__close" onclick="closeModal('p01')" aria-label="Cerrar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
       <div class="prod-modal__body">
-        <div class="prod-tabs" role="tablist">
-          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p01','t1')" role="tab" aria-selected="true">Skin Factor</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p01','t2')" role="tab">Skin Factor Barrier</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p01','t3')" role="tab">Restaura</button>
+        <div class="prod-carousel-nav">
+          <button class="prod-carousel-btn" id="modal-p01-prev" onclick="carouselPrev('modal-p01')" disabled aria-label="Anterior">‹</button>
+          <div style="display:flex;align-items:center;gap:var(--space-3);">
+            <div class="prod-carousel-dots"><button class="prod-carousel-dot is-active" onclick="carouselDot('modal-p01',0)" aria-label="Skin Factor"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p01',1)" aria-label="SF Barrier"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p01',2)" aria-label="Restaura"></button></div>
+            <span class="prod-carousel-label" id="modal-p01-label">Skin Factor</span>
+          </div>
+          <button class="prod-carousel-btn" id="modal-p01-next" onclick="carouselNext('modal-p01')" aria-label="Siguiente">›</button>
         </div>
         <!-- Tab Skin Factor -->
         <div class="prod-panel is-active" id="p01-t1" role="tabpanel">
@@ -3124,18 +3140,21 @@
     <div class="prod-modal">
       <div class="prod-modal__header">
         <div>
-          <div class="prod-modal__protocol-num">02</div>
-          <h2 class="prod-modal__title" id="modal-p02-title">Protocolo Antiage Avanzado</h2>
+          <div class="prod-modal__protocol-num">01</div>
+          <h2 class="prod-modal__title" id="modal-p02-title">01 · Protocolo Antiage Avanzado</h2>
         </div>
         <button class="prod-modal__close" onclick="closeModal('p02')" aria-label="Cerrar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
       <div class="prod-modal__body">
-        <div class="prod-tabs" role="tablist">
-          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p02','t1')" role="tab">DMAE Lift 10</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p02','t2')" role="tab">Pure Retinol</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p02','t3')" role="tab">Tinolvital</button>
+        <div class="prod-carousel-nav">
+          <button class="prod-carousel-btn" id="modal-p02-prev" onclick="carouselPrev('modal-p02')" disabled aria-label="Anterior">‹</button>
+          <div style="display:flex;align-items:center;gap:var(--space-3);">
+            <div class="prod-carousel-dots"><button class="prod-carousel-dot is-active" onclick="carouselDot('modal-p02',0)" aria-label="DMAE Lift 10"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p02',1)" aria-label="Pure Retinol"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p02',2)" aria-label="Tinolvital"></button></div>
+            <span class="prod-carousel-label" id="modal-p02-label">DMAE Lift 10</span>
+          </div>
+          <button class="prod-carousel-btn" id="modal-p02-next" onclick="carouselNext('modal-p02')" aria-label="Siguiente">›</button>
         </div>
         <div class="prod-panel is-active" id="p02-t1" role="tabpanel">
           
@@ -3206,16 +3225,20 @@
       <div class="prod-modal__header">
         <div>
           <div class="prod-modal__protocol-num">03</div>
-          <h2 class="prod-modal__title" id="modal-p03-title">Protocolo Piel Urbana / Pantallas</h2>
+          <h2 class="prod-modal__title" id="modal-p03-title">03 · Protocolo Piel Urbana / Pantallas</h2>
         </div>
         <button class="prod-modal__close" onclick="closeModal('p03')" aria-label="Cerrar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
       <div class="prod-modal__body">
-        <div class="prod-tabs" role="tablist">
-          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p03','t1')" role="tab">Blue Balance Sérum</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p03','t2')" role="tab">Blue Balance Gel Crema</button>
+        <div class="prod-carousel-nav">
+          <button class="prod-carousel-btn" id="modal-p03-prev" onclick="carouselPrev('modal-p03')" disabled aria-label="Anterior">‹</button>
+          <div style="display:flex;align-items:center;gap:var(--space-3);">
+            <div class="prod-carousel-dots"><button class="prod-carousel-dot is-active" onclick="carouselDot('modal-p03',0)" aria-label="BB Sérum"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p03',1)" aria-label="BB Gel Crema"></button></div>
+            <span class="prod-carousel-label" id="modal-p03-label">BB Sérum</span>
+          </div>
+          <button class="prod-carousel-btn" id="modal-p03-next" onclick="carouselNext('modal-p03')" aria-label="Siguiente">›</button>
         </div>
         <div class="prod-panel is-active" id="p03-t1" role="tabpanel">
           
@@ -3268,16 +3291,20 @@
       <div class="prod-modal__header">
         <div>
           <div class="prod-modal__protocol-num">04</div>
-          <h2 class="prod-modal__title" id="modal-p04-title">Protocolo Imperfecciones y Textura</h2>
+          <h2 class="prod-modal__title" id="modal-p04-title">02 · Protocolo Imperfecciones y Textura</h2>
         </div>
         <button class="prod-modal__close" onclick="closeModal('p04')" aria-label="Cerrar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
       <div class="prod-modal__body">
-        <div class="prod-tabs" role="tablist">
-          <button class="prod-tab-btn is-active" onclick="switchTab(event,'p04','t1')" role="tab">Glicolmix</button>
-          <button class="prod-tab-btn" onclick="switchTab(event,'p04','t2')" role="tab">Clear Skin</button>
+        <div class="prod-carousel-nav">
+          <button class="prod-carousel-btn" id="modal-p04-prev" onclick="carouselPrev('modal-p04')" disabled aria-label="Anterior">‹</button>
+          <div style="display:flex;align-items:center;gap:var(--space-3);">
+            <div class="prod-carousel-dots"><button class="prod-carousel-dot is-active" onclick="carouselDot('modal-p04',0)" aria-label="Glicolmix"></button> <button class="prod-carousel-dot " onclick="carouselDot('modal-p04',1)" aria-label="Clear Azelaic"></button></div>
+            <span class="prod-carousel-label" id="modal-p04-label">Glicolmix</span>
+          </div>
+          <button class="prod-carousel-btn" id="modal-p04-next" onclick="carouselNext('modal-p04')" aria-label="Siguiente">›</button>
         </div>
         <div class="prod-panel is-active" id="p04-t1" role="tabpanel">
           
@@ -3496,6 +3523,61 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
     revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── MODAL CAROUSEL — prev/next/dot navigation ──────────────────────────
+    const carouselState = {};
+
+    function carouselInit(modalId) {
+      if (carouselState[modalId] !== undefined) return;
+      const panels = document.querySelectorAll(`#${modalId} .prod-panel`);
+      carouselState[modalId] = 0;
+      panels.forEach((p, i) => {
+        p.classList.toggle('is-active', i === 0);
+      });
+      updateCarouselUI(modalId);
+    }
+
+    function updateCarouselUI(modalId) {
+      const idx = carouselState[modalId] || 0;
+      const panels = document.querySelectorAll(`#${modalId} .prod-panel`);
+      const dots   = document.querySelectorAll(`#${modalId} .prod-carousel-dot`);
+      const prev   = document.getElementById(`${modalId}-prev`);
+      const next   = document.getElementById(`${modalId}-next`);
+      const label  = document.getElementById(`${modalId}-label`);
+
+      panels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+      dots.forEach((d, i)   => d.classList.toggle('is-active', i === idx));
+      if (prev) prev.disabled = idx === 0;
+      if (next) next.disabled = idx === panels.length - 1;
+      if (label && dots[idx]) label.textContent = dots[idx].getAttribute('aria-label');
+    }
+
+    function carouselPrev(modalId) {
+      if ((carouselState[modalId] || 0) > 0) {
+        carouselState[modalId]--;
+        updateCarouselUI(modalId);
+      }
+    }
+
+    function carouselNext(modalId) {
+      const panels = document.querySelectorAll(`#${modalId} .prod-panel`);
+      if ((carouselState[modalId] || 0) < panels.length - 1) {
+        carouselState[modalId]++;
+        updateCarouselUI(modalId);
+      }
+    }
+
+    function carouselDot(modalId, idx) {
+      carouselState[modalId] = idx;
+      updateCarouselUI(modalId);
+    }
+
+    // Override openModal to init carousel
+    const _origOpenModal = openModal;
+    function openModal(id) {
+      _origOpenModal(id);
+      carouselInit('modal-' + id);
+    }
 
     // ── PRODUCT MODALS ────────────────────────────────────────────
     function openModal(id) {
