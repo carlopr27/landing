@@ -203,7 +203,7 @@
 
     /* Section container */
     .section {
-      padding: var(--space-16) var(--page-pad);
+      padding: var(--space-10) var(--page-pad);
     }
     .section__inner {
       max-width: var(--max-width);
@@ -390,7 +390,7 @@
         background: var(--color-blanco);
         flex-direction: column;
         align-items: flex-start;
-        padding: var(--space-4) var(--page-pad);
+        padding: var(--space-3) var(--page-pad);
         border-bottom: var(--border-thin);
         gap: 0;
       }
@@ -407,21 +407,12 @@
        ================================================================ */
     .hero {
       background: var(--color-azul);
-      padding: clamp(4rem, 10vw, var(--space-20)) var(--page-pad) clamp(4rem, 8vw, var(--space-16));
+      padding: clamp(2rem, 4vw, 3rem) var(--page-pad) clamp(1.5rem, 3vw, 2.5rem);
       position: relative;
       overflow: hidden;
     }
 
-    /* Video loop background — sutil, el azul domina */
-    .hero__video-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.15;
-      z-index: 0;
-      pointer-events: none;
-    }
+
 
     /* Geometric texture — gold line grid, very subtle */
     .hero::before {
@@ -476,7 +467,7 @@
 
     .hero__h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.25rem, 4.5vw, var(--text-4xl));
+      font-size: clamp(2rem, 3.8vw, 3rem);
       font-weight: 400;
       line-height: var(--lh-tight);
       letter-spacing: var(--ls-tight);
@@ -593,7 +584,7 @@
     .trust-bar {
       background: var(--color-crema);
       border-bottom: var(--border-thin);
-      padding: var(--space-4) var(--page-pad);
+      padding: var(--space-3) var(--page-pad);
     }
     .trust-bar__inner {
       max-width: var(--max-width);
@@ -633,7 +624,7 @@
     .identidad__grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--space-12);
+      gap: var(--space-8);
       align-items: center;
     }
 
@@ -674,8 +665,8 @@
     /* Lab visual — clinical image placeholder */
     .identidad__visual {
       background: var(--color-gris-fondo);
-      border: var(--border-thin);
-      aspect-ratio: 4/5;
+      border: none;
+      aspect-ratio: 16/10;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -684,13 +675,7 @@
       padding: var(--space-8);
       position: relative;
     }
-    .identidad__visual::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--color-dorado);
-    }
+    /* .identidad__visual::before — gold border removed */
     .identidad__visual-caption {
       font-size: var(--text-xs);
       text-transform: uppercase;
@@ -1755,8 +1740,8 @@
        ================================================================ */
     .wa-fab {
       position: fixed;
-      right: 0;
-      bottom: 30%;
+      right: 24px;
+      bottom: 24px;
       z-index: 500;
       display: flex;
       align-items: center;
@@ -1779,8 +1764,8 @@
     }
     .wa-fab:hover {
       background: #1da851;
-      transform: translateX(-4px);
-      box-shadow: -6px 2px 24px rgba(37,211,102,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
     }
     .wa-fab:focus-visible { outline: 2px solid var(--color-foco); outline-offset: 3px; }
     .wa-fab__icon {
@@ -1791,7 +1776,7 @@
       flex-shrink: 0;
     }
     @media (max-width: 680px) {
-      .wa-fab { bottom: 15%; padding: 10px 12px; gap: 8px; }
+      .wa-fab { right: 16px; bottom: 16px; padding: 10px 12px; gap: 8px; }
       .wa-fab__label { display: none; }
     }
 
@@ -1903,7 +1888,7 @@
           <ul class="nav__sub" aria-label="Quiénes somos">
             <li><a href="#identidad">Nuestra historia<span class="sub-label">Origen Barcelona · I+D+I</span></a></li>
             <li><a href="#canal">Biotecnología<span class="sub-label">Azul + verde · activos</span></a></li>
-            <li><a href="#proceso">Cómo trabajamos<span class="sub-label">Del contacto al anaquel</span></a></li>
+            
           </ul>
         </li>
         <!-- Portafolio — submenu -->
@@ -1921,10 +1906,10 @@
           <ul class="nav__sub" aria-label="Canal especializado">
             <li><a href="#canal">Por qué SEGLE<span class="sub-label">Beneficios para tu negocio</span></a></li>
             <li><a href="#proceso">Proceso de entrada<span class="sub-label">4 pasos · 30 días</span></a></li>
-            <li><a href="#formulario">Solicitar información<span class="sub-label">Respuesta 24-48 h</span></a></li>
+            <li><a href="#formulario">Solicitar información y muestras gratis<span class="sub-label">Respuesta 24-48 h</span></a></li>
           </ul>
         </li>
-        <li><a href="#formulario" class="nav__b2b">Solicitar información</a></li>
+        <li><a href="#formulario" class="nav__b2b">Solicitar información y muestras gratis</a></li>
       </ul>
 
       <button
@@ -1948,10 +1933,6 @@
        ================================================================ -->
   <section class="hero" id="inicio" aria-labelledby="hero-h1">
 
-    <!-- Video de marca en loop — muted, no bloqueante, fallback navy -->
-    <video class="hero__video-bg" autoplay muted loop playsinline aria-hidden="true">
-      <source src="assets/hero-loop.mp4" type="video/mp4">
-    </video>
 
     <div class="hero__inner">
 
@@ -1972,13 +1953,13 @@
         </p>
 
         <div class="hero__ctas">
-          <a href="#formulario" class="btn btn-primary">Solicitar información de canal</a>
+          <a href="#formulario" class="btn btn-primary">Solicitar información y muestras gratis</a>
           <a href="#portafolio" class="btn btn-ghost">Ver portafolio</a>
         </div>
 
         <div class="hero__stats" aria-label="Indicadores clave de canal">
           <div>
-            <span class="hero__stat-value">35–50%</span>
+            <span class="hero__stat-value">30–45%</span>
             <span class="hero__stat-label">Margen canal</span>
           </div>
           <div>
@@ -2063,13 +2044,13 @@
             Laboratorio español de I+D+I con estándares de industria farmacéutica
           </h2>
           <p class="identidad__body">
-            SEGLE Biotech Skincare nació en Barcelona dentro de la industria farmacéutica europea. No es una marca cosmética reconvertida — es <strong>cosmética formulada con metodología farmacéutica</strong>: ensayos de estabilidad formales, certificados de análisis por lote, concentraciones clínicamente relevantes.
+            SEGLE Biotech Skincare nació en Barcelona dentro de la industria farmacéutica europea — no es una marca cosmética reconvertida. Es cosmética <strong>formulada con metodología farmacéutica</strong>: el activo correcto, en concentración clínicamente relevante, con estabilidad comprobada durante toda la vida útil del producto. Esas tres condiciones son el punto de partida, no el objetivo.
           </p>
           <p class="identidad__body">
-            Los activos de nuestras fórmulas se obtienen mediante procesos biotecnológicos controlados —fermentación, cultivo celular, síntesis enzimática— que producen ingredientes de mayor pureza, mayor estabilidad y mayor biodisponibilidad que los obtenidos por extracción convencional.
+            La diferencia está en cómo se obtienen los activos. Donde la cosmética estándar usa extracción química, SEGLE utiliza <strong>biotecnología verde</strong> (cultivos celulares vegetales, péptidos botánicos de pureza documentada) y <strong>biotecnología azul</strong> (microalgas marinas, colágeno marino, activos de ecosistemas oceánicos) — obtenidos en procesos biológicos controlados con mayor pureza, biodisponibilidad real y reproducibilidad lote a lote.
           </p>
-          <p class="identidad__body">
-            En México operamos a través de <strong>SEGLE Biotech Skincare</strong>, con distribución selectiva en farmacias dermatológicas, clínicas y médicos de estética. No buscamos presencia masiva — buscamos socios que entiendan el producto.
+          <p class="identidad__body" style="border-left:3px solid var(--color-dorado);padding-left:var(--space-4);font-style:italic;color:var(--color-azul);">
+            "Creemos en la biotecnología verde y azul como medio para aprovechar los recursos que nos da la naturaleza y encontrar ingredientes que permitan desarrollar productos aún más eficaces." — <strong>Mónica Lizondo</strong>, CEO SEGLE Biotech Skincare
           </p>
           <div class="identidad__badges" aria-label="Atributos de formulación">
             <span class="identidad__badge">Sin parabenos</span>
@@ -2082,20 +2063,12 @@
         <div class="reveal reveal-delay-2 identidad__visual" aria-label="Laboratorio de formulación SEGLE — proceso biotecnológico">
           <!-- Foto real de laboratorio: ampollas y pipeta de activos -->
           <img
-            src="assets/lab-ampoules.jpg"
-            alt="Proceso de formulación biotecnológica SEGLE — activos en alta concentración"
+            src="assets/algae-cells.jpg"
+            alt="Haematococcus pluvialis — biotecnología azul SEGLE"
             loading="lazy"
             style="width:100%;height:100%;object-fit:cover;display:block;"
           >
-          <!-- Micro: células de Haematococcus pluvialis — fuente de astaxantina -->
-          <div style="position:absolute;bottom:0;right:0;width:35%;aspect-ratio:1/1;overflow:hidden;border-left:1px solid var(--color-dorado);border-top:1px solid var(--color-dorado);">
-            <img
-              src="assets/algae-cells.jpg"
-              alt="Haematococcus pluvialis — alga fuente de astaxantina SEGLE"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.85;"
-            >
-          </div>
+
         </div>
 
       </div><!-- fin identidad__grid -->
@@ -2107,7 +2080,7 @@
             <span class="section-label">Nuestra historia</span>
             <h3 style="font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--fw-regular);color:var(--color-azul);letter-spacing:var(--ls-tight);">SEGLE Biotech Skincare — Quiénes somos</h3>
           </div>
-          <a href="#formulario" class="btn btn-navy" style="flex-shrink:0;">Solicitar información</a>
+          <a href="#formulario" class="btn btn-navy" style="flex-shrink:0;">Solicitar información y muestras gratis</a>
         </div>
         <div style="position:relative;padding-bottom:42%;height:0;overflow:hidden;border:var(--border-thin);background:var(--color-azul);">
           <iframe
@@ -2165,7 +2138,7 @@
             </svg>
           </div>
           <h3 class="beneficio-card__title">Margen diferenciado</h3>
-          <p class="beneficio-card__body">35–50% de margen para el canal especializado. Recompra predecible cada 45–60 días. Un paciente fidelizado en el protocolo antiage puede representar entre ,000 y ,000 MXN anuales en el mismo punto de venta.</p>
+          <p class="beneficio-card__body">30–45% de margen para el canal especializado. Recompra predecible cada 45–60 días. Un paciente fidelizado en el protocolo antiage puede representar entre ,000 y ,000 MXN anuales en el mismo punto de venta.</p>
         </article>
 
         <article class="beneficio-card reveal reveal-delay-3" role="listitem">
@@ -2225,30 +2198,11 @@
 
         <!-- PROTOCOLO 01 -->
         <article class="protocolo-card" role="listitem">
-          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Barrera Sensible">
-            <img src="assets/familia-skin-factor-blue-balance.jpg" alt="Skin Factor + Skin Factor Barrier + Vital C — Protocolo Barrera Sensible SEGLE" loading="lazy" style="object-position:center left;">
-          </div>
-          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(40,181,144,0.25);">01</div>
-          <h3 class="protocolo-card__title">Barrera Sensible</h3>
-          <p class="protocolo-card__body">Piel sensibilizada, post-procedimiento, rosácea en mantenimiento. El protocolo más relevante para clínicas con láser y peeling.</p>
-          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
-            <li>Skin Factor</li>
-            <li>Skin Factor Barrier</li>
-            <li>Restaura</li>
-          </ul>
-          <button class="proto-btn" onclick="openModal('p01')" aria-haspopup="dialog">
-            Ver productos
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </article>
-
-        <!-- PROTOCOLO 02 -->
-        <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Antiage Avanzado">
             <img src="assets/familia-antiage-glicolmix.jpg" alt="DMAE Lift10 + Vital C + Triple Retinoid — Protocolo Antiage SEGLE" loading="lazy" style="object-position:center right;">
             <span class="protocolo-card__award" style="background:var(--color-dorado);">iDermo Oro 2020</span>
           </div>
-          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(185,128,208,0.25);">02</div>
+          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(185,128,208,0.25);">01</div>
           <h3 class="protocolo-card__title">Antiage Avanzado</h3>
           <p class="protocolo-card__body">Pérdida de firmeza, arrugas de expresión, flacidez incipiente. El ticket promedio más alto del portafolio.</p>
           <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
@@ -2261,8 +2215,23 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
-
-        <!-- PROTOCOLO 03 -->
+        <article class="protocolo-card" role="listitem">
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Imperfecciones y Textura">
+            <img src="assets/familia-antiage-glicolmix.jpg" alt="Glicolmix Exfoliante + Clear Skin — Protocolo Imperfecciones SEGLE" loading="lazy" style="object-position:center left;">
+            <span class="protocolo-card__award" style="background:#999;">iDermo Plata 2024</span>
+          </div>
+          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(255,127,64,0.25);">02</div>
+          <h3 class="protocolo-card__title">Imperfecciones y Textura</h3>
+          <p class="protocolo-card__body">Piel grasa, poros dilatados, acné leve a moderado, manchas post-inflamatorias. Consulta de alta frecuencia en farmacia.</p>
+          <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
+            <li>Glicolmix Exfoliante</li>
+            <li>Clear Skin</li>
+          </ul>
+          <button class="proto-btn" onclick="openModal('p04')" aria-haspopup="dialog">
+            Ver productos
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </article>
         <article class="protocolo-card" role="listitem">
           <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Piel Urbana / Pantallas">
             <img src="assets/familia-skin-factor-blue-balance.jpg" alt="Blue Balance Sérum + Blue Balance Gel Crema — Protocolo Piel Urbana SEGLE" loading="lazy" style="object-position:center right;">
@@ -2280,21 +2249,19 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </article>
-
-        <!-- PROTOCOLO 04 -->
         <article class="protocolo-card" role="listitem">
-          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Imperfecciones y Textura">
-            <img src="assets/familia-antiage-glicolmix.jpg" alt="Glicolmix Exfoliante + Clear Skin — Protocolo Imperfecciones SEGLE" loading="lazy" style="object-position:center left;">
-            <span class="protocolo-card__award" style="background:#999;">iDermo Plata 2024</span>
+          <div class="protocolo-card__img" aria-label="Fotografía de producto — Protocolo Barrera Sensible">
+            <img src="assets/familia-skin-factor-blue-balance.jpg" alt="Skin Factor + Skin Factor Barrier + Vital C — Protocolo Barrera Sensible SEGLE" loading="lazy" style="object-position:center left;">
           </div>
-          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(255,127,64,0.25);">04</div>
-          <h3 class="protocolo-card__title">Imperfecciones y Textura</h3>
-          <p class="protocolo-card__body">Piel grasa, poros dilatados, acné leve a moderado, manchas post-inflamatorias. Consulta de alta frecuencia en farmacia.</p>
+          <div class="protocolo-card__num" aria-hidden="true" style="color:rgba(40,181,144,0.25);">04</div>
+          <h3 class="protocolo-card__title">Barrera Sensible</h3>
+          <p class="protocolo-card__body">Piel sensibilizada, post-procedimiento, rosácea en mantenimiento. El protocolo más relevante para clínicas con láser y peeling.</p>
           <ul class="protocolo-card__skus" aria-label="SKUs del protocolo">
-            <li>Glicolmix Exfoliante</li>
-            <li>Clear Skin</li>
+            <li>Skin Factor</li>
+            <li>Skin Factor Barrier</li>
+            <li>Restaura</li>
           </ul>
-          <button class="proto-btn" onclick="openModal('p04')" aria-haspopup="dialog">
+          <button class="proto-btn" onclick="openModal('p01')" aria-haspopup="dialog">
             Ver productos
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
@@ -2327,54 +2294,120 @@
           <p style="font-size:var(--text-base);line-height:var(--lh-body);color:var(--color-gris-texto);margin-bottom:var(--space-6);">
             Tres productos. Dos protocolos clínicos. Disponibles exclusivamente para el canal especializado a partir del segundo semestre 2025.
           </p>
-          <a href="#formulario" class="btn btn-navy">Pre-registro canal NAD+</a>
         </div>
 
         <!-- Right: product images 3-up -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:var(--space-3);">
-          <!-- Antiox NAD+ — arriba izquierda, ocupa ambas columnas -->
-          <div style="grid-column:1/-1;border:var(--border-thin);overflow:hidden;aspect-ratio:16/9;background:var(--color-blanco);">
-            <img
-              src="assets/antiox-nad-campaign.jpg"
-              alt="SEGLE Antiox NAD+ Facial Serum — Antioxidant Cellular Energy Booster"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;display:block;"
-            >
-          </div>
-          <!-- Antiox NAD+ Sérum — producto individual fondo blanco -->
-          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
-            <img
-              src="assets/antiox-nad-serum.jpeg"
-              alt="SEGLE Antiox NAD+ Facial Serum — Antioxidant Cellular Energy Booster"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;display:block;"
-            >
-          </div>
-          <!-- Collagen NAD+ Sérum -->
-          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
-            <img
-              src="assets/collagen-nad-serum.jpeg"
-              alt="SEGLE Collagen NAD+ Facial Serum — Firming Cellular Energy Booster"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;display:block;"
-            >
-          </div>
-          <!-- Collagen NAD+ Crema -->
-          <div style="border:var(--border-thin);overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
-            <img
-              src="assets/collagen-nad-crema.jpeg"
-              alt="SEGLE Collagen NAD+ Day/Night Cream — Firming Cellular Energy Booster"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;display:block;"
-            >
-          </div>
-        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-3);">
 
-      </div>
+          <!-- NAD+ Product Grid — 3 productos con info completa del Tour México site -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-5);">
+
+            <!-- ── ANTIOX NAD+ SÉRUM ──────────────────────────────────── -->
+            <div style="display:flex;flex-direction:column;background:var(--color-blanco);border:var(--border-thin);">
+              <div style="overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+                <img
+                  src="assets/antiox-nad-serum.jpeg"
+                  alt="SEGLE Antiox NAD+ Facial Serum — Antioxidant Cellular Energy Booster"
+                  loading="lazy"
+                  style="width:100%;height:100%;object-fit:cover;display:block;"
+                >
+              </div>
+              <div style="padding:var(--space-4) var(--space-4) var(--space-5);flex:1;display:flex;flex-direction:column;gap:var(--space-3);">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);">
+                  <span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--pantone-orange);border:1px solid var(--pantone-orange);padding:2px 8px;">X9 poder antioxidante</span>
+                </div>
+                <h4 style="font-family:var(--font-brand);font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-azul);margin:0;">Antiox NAD+</h4>
+                <p style="font-size:var(--text-xs);line-height:1.6;color:var(--color-gris-texto);margin:0;">Sérum antioxidante con Vitamina C y NAD+. 9 antioxidantes de alta tecnología biotecnológica para proteger, reparar y prolongar la longevidad de la piel.</p>
+                <div style="border-top:1px solid var(--color-gris-linea);padding-top:var(--space-3);">
+                  <p style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-azul);margin:0 0 6px;">Activos clave</p>
+                  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-orange);">3 tipos de Vitamina C + Ácido ferúlico + Vitamina E</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-orange);">Astaxantina + EUK-134 + CoQ10</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-orange);">RejuveNAD™ + Niacinamida</li>
+                  </ul>
+                </div>
+                <div style="display:flex;gap:var(--space-3);margin-top:auto;padding-top:var(--space-3);">
+                  <div style="flex:1;text-align:center;padding:var(--space-2);background:rgba(255,127,64,0.06);border:1px solid rgba(255,127,64,0.2);">
+                    <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--pantone-orange);">+58%</div>
+                    <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-gris-texto);">hidratación*</div>
+                  </div>
+                  <div style="flex:1;text-align:center;padding:var(--space-2);background:rgba(255,127,64,0.06);border:1px solid rgba(255,127,64,0.2);">
+                    <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--pantone-orange);">+45%</div>
+                    <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-gris-texto);">protección ADN*</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── COLLAGEN NAD+ SÉRUM ─────────────────────────────────── -->
+            <div style="display:flex;flex-direction:column;background:var(--color-blanco);border:var(--border-thin);">
+              <div style="overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+                <img
+                  src="assets/collagen-nad-serum.jpeg"
+                  alt="SEGLE Collagen NAD+ Facial Serum — Firming Cellular Energy Booster"
+                  loading="lazy"
+                  style="width:100%;height:100%;object-fit:cover;display:block;"
+                >
+              </div>
+              <div style="padding:var(--space-4) var(--space-4) var(--space-5);flex:1;display:flex;flex-direction:column;gap:var(--space-3);">
+                <span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--pantone-magenta);border:1px solid var(--pantone-magenta);padding:2px 8px;align-self:flex-start;">Firmeza pro-colágeno</span>
+                <h4 style="font-family:var(--font-brand);font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-azul);margin:0;">Collagen NAD+ Sérum</h4>
+                <p style="font-size:var(--text-xs);line-height:1.6;color:var(--color-gris-texto);margin:0;">Sérum reafirmante con NAD+ y colágeno. Reactiva la energía celular mientras refuerza la función barrera y estimula firmeza visible.</p>
+                <div style="border-top:1px solid var(--color-gris-linea);padding-top:var(--space-3);">
+                  <p style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-azul);margin:0 0 6px;">Activos clave</p>
+                  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">Aminoácidos estructurales de alga marina</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">Péptidos biomiméticos + Niacinamida</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">Rejuvecoll® + Ceramidas + RejuveNAD™</li>
+                  </ul>
+                </div>
+                <div style="display:flex;gap:var(--space-3);margin-top:auto;padding-top:var(--space-3);">
+                  <div style="flex:1;text-align:center;padding:var(--space-2);background:rgba(211,89,137,0.06);border:1px solid rgba(211,89,137,0.2);">
+                    <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--pantone-magenta);">+68%</div>
+                    <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-gris-texto);">elasticidad*</div>
+                  </div>
+                  <div style="flex:1;text-align:center;padding:var(--space-2);background:rgba(211,89,137,0.06);border:1px solid rgba(211,89,137,0.2);">
+                    <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--pantone-magenta);">+50%</div>
+                    <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-gris-texto);">NAD+ activo*</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── COLLAGEN NAD+ CREMA ─────────────────────────────────── -->
+            <div style="display:flex;flex-direction:column;background:var(--color-blanco);border:var(--border-thin);">
+              <div style="overflow:hidden;aspect-ratio:3/4;background:var(--color-blanco);">
+                <img
+                  src="assets/collagen-nad-crema.jpeg"
+                  alt="SEGLE Collagen NAD+ Day/Night Cream — Firming Cellular Energy Booster"
+                  loading="lazy"
+                  style="width:100%;height:100%;object-fit:cover;display:block;"
+                >
+              </div>
+              <div style="padding:var(--space-4) var(--space-4) var(--space-5);flex:1;display:flex;flex-direction:column;gap:var(--space-3);">
+                <span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--pantone-magenta);border:1px solid var(--pantone-magenta);padding:2px 8px;align-self:flex-start;">Day / Night Cream</span>
+                <h4 style="font-family:var(--font-brand);font-size:var(--text-sm);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-azul);margin:0;">Collagen NAD+ Crema</h4>
+                <p style="font-size:var(--text-xs);line-height:1.6;color:var(--color-gris-texto);margin:0;">Crema de día y noche con firmeza inteligente. Proporciona energía celular continua, profunda hidratación y refuerzo de la función barrera.</p>
+                <div style="border-top:1px solid var(--color-gris-linea);padding-top:var(--space-3);">
+                  <p style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-azul);margin:0 0 6px;">Activos clave</p>
+                  <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px;">
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">Rejuvecoll® — péptidos de membrana de huevo</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">Aminoácidos de alga + Péptidos biomiméticos</li>
+                    <li style="font-size:var(--text-xs);color:var(--color-gris-texto);padding-left:10px;border-left:2px solid var(--pantone-magenta);">NAD+ Booster Complex + Ceramidas</li>
+                  </ul>
+                </div>
+                <div style="margin-top:auto;padding-top:var(--space-3);padding:var(--space-2);background:rgba(211,89,137,0.06);border:1px solid rgba(211,89,137,0.15);text-align:center;">
+                  <p style="font-size:var(--text-xs);color:var(--color-gris-texto);margin:0;">Estimula colágeno, elastina<br>y ácido hialurónico endógenos</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <p style="font-size:0.6rem;color:var(--color-gris-texto);margin-top:var(--space-3);text-align:right;opacity:0.7;">*Indicadores de campaña de lanzamiento. Ver dossier técnico para metodología, condiciones y alcance por producto.</p></div>
 
       <!-- GÉNESIS video — click to play -->
       <div class="reveal" style="margin-top:var(--space-10);">
-        <p style="font-size:var(--text-xs);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--color-gris-texto);margin-bottom:var(--space-4);">/ El video</p>
+        <p style="font-size:var(--text-xs);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--color-gris-texto);margin-bottom:var(--space-4);">/ GÉNESIS · The New Era — Descubre la nueva línea celular NAD+</p>
         <div style="position:relative;padding-bottom:42%;height:0;overflow:hidden;border:var(--border-thin);">
           <iframe
             style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
@@ -2438,7 +2471,7 @@
             <tr>
               <td>Margen canal especializado</td>
               <td>20%–30%</td>
-              <td class="col-segle">35%–50%</td>
+              <td class="col-segle">30%–45%</td>
               <td>25%–40%</td>
             </tr>
             <tr>
@@ -2718,7 +2751,7 @@
                     <div class='zcwf_col_fld'>
                       <input type='submit' id='formsubmit' role='button'
                              class='formsubmit zcwf_button'
-                             value='SOLICITAR INFORMACIÓN DE CANAL'
+                             value='SOLICITAR INFORMACIÓN Y MUESTRAS GRATIS'
                              aria-label='Solicitar información de canal'>
                       <!-- Reset button eliminado intencionalmente — mala UX en B2B -->
                     </div>
@@ -2946,9 +2979,6 @@
                 <li>Extractos calmantes (Bisabolol, Pantenol) — reducen reactividad</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Resultado esperado:</strong> En 7–14 días, reducción visible de enrojecimiento reactivo, mejora en textura y comodidad al tacto. En 30 días, barrera funcional restaurada.
-            </div>
           </div>
         </div>
         <!-- Tab Skin Factor Barrier -->
@@ -2970,9 +3000,6 @@
                 <li>Sin fragancia · Sin alcohol · Sin parabenos</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Perfil ideal:</strong> Paciente post-láser, post-peeling, con rosácea activa o bajo medicación tópica agresiva (ácido retinoico de prescripción, antibióticos tópicos).
-            </div>
           </div>
         </div>
         <!-- Tab Restaura -->
@@ -2993,9 +3020,6 @@
                 <li>Isoflavonas de soya liposomadas — acción antioxidante y estrogénica</li>
                 <li>Aloe Vera + Vitamina E</li>
               </ul>
-            </div>
-            <div class="prod-panel__result">
-              <strong>Premio iDermo 2019 Bronce.</strong> Producto puerta de entrada recomendado para nuevos pacientes de la marca — funciona en casi todo tipo de piel con resultados visibles en la primera semana.
             </div>
           </div>
         </div>
@@ -3040,9 +3064,6 @@
                 <li>En crema: +Silicio orgánico, Manteca de karité, Vitamina E</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Premio iDermo 2020 Oro.</strong> Efecto tensor observable desde los primeros días de uso. Resultado acumulativo notable a partir de la semana 3–4. Apto para aplicación en óvalo, cuello y escote.
-            </div>
           </div>
         </div>
         <div class="prod-panel" id="p02-t2" role="tabpanel">
@@ -3062,9 +3083,6 @@
                 <li>Activos calmantes complementarios — minimizan la irritación inicial</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Indicación en mostrador:</strong> "Este retinol está encapsulado — da el resultado del retinol pero con mucho menos irritación. Empiece 2–3 veces a la semana y va subiendo. Siempre protector solar en la mañana."
-            </div>
           </div>
         </div>
         <div class="prod-panel" id="p02-t3" role="tabpanel">
@@ -3083,9 +3101,6 @@
                 <li>Acción renovadora en mismos receptores que retinol (RAR, RXR)</li>
                 <li>Compatible con uso desde el primer día — sin período de adaptación</li>
               </ul>
-            </div>
-            <div class="prod-panel__result">
-              <strong>Para paciente que dice:</strong> "Soy muy sensible, el retinol me irrita." Tinolvital hace lo mismo que el retinol pero sin la irritación. Puede empezar diario desde el primer día.
             </div>
           </div>
         </div>
@@ -3129,9 +3144,6 @@
                 <li>Prebióticos + Postbióticos (Bifidobacterium ferment lysate) — microbioma</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Premio iDermo 2023 Bronce.</strong> En 3–4 semanas: mejora perceptible en equilibrio de tono, reducción de irritación basal, mayor luminosidad. Diferencia más notable a las 6 semanas.
-            </div>
           </div>
         </div>
         <div class="prod-panel" id="p03-t2" role="tabpanel">
@@ -3151,9 +3163,6 @@
                 <li>Misma base de prebióticos + postbióticos que el sérum</li>
                 <li>Textura gel: ideal para pieles mixtas a grasas o clima cálido</li>
               </ul>
-            </div>
-            <div class="prod-panel__result">
-              <strong>Diferencia con el sérum:</strong> mismos activos, diferente textura. Sérum para pieles normales-mixtas que quieren capas. Gel Crema como paso único para pieles grasas o en clima húmedo.
             </div>
           </div>
         </div>
@@ -3196,9 +3205,6 @@
                 <li>Mantiene el pH de la piel en 5.5</li>
               </ul>
             </div>
-            <div class="prod-panel__result">
-              <strong>Premio iDermo 2024 Plata.</strong> Uso nocturno, 1–2 veces/semana. En 2 semanas: mejora visible en textura y poros. No aplicar en pieles intolerantes, con telangiectasias o reactivas. Siempre SPF en la mañana.
-            </div>
           </div>
         </div>
         <div class="prod-panel" id="p04-t2" role="tabpanel">
@@ -3218,9 +3224,6 @@
                 <li>Zinc PCA — control de sebo + antibacteriano</li>
                 <li>Componente prebiótico — no desequilibra microbioma (diferencial vs. tratamientos convencionales)</li>
               </ul>
-            </div>
-            <div class="prod-panel__result">
-              <strong>Ventaja vs. Effaclar:</strong> "El azelaico al 10% de Clear Skin tiene mucha más evidencia para las manchas que deja el acné. Y el componente prebiótico hace que no desequilibre el microbioma, que es lo que pasa con muchos tratamientos convencionales."
             </div>
           </div>
         </div>
@@ -3244,7 +3247,7 @@
         <nav aria-label="Canal">
           <span class="footer__col-title">Canal</span>
           <ul class="footer__nav-list">
-            <li><a href="#formulario">Solicitar información</a></li>
+            <li><a href="#formulario">Solicitar información y muestras gratis</a></li>
             <li><a href="#portafolio">Ver portafolio</a></li>
             <li><a href="#canal">Por qué SEGLE</a></li>
             <li><a href="assets/vademecum-segle.pdf" target="_blank" rel="noopener noreferrer" download>Descargar vademecum ↓</a></li>
@@ -3484,9 +3487,9 @@
       const submitBtn = zohoForm.querySelector('input[type="submit"], button[type="submit"]');
       if (submitBtn) {
         if (submitBtn.tagName === 'INPUT') {
-          submitBtn.value = 'SOLICITAR INFORMACIÓN DE CANAL';
+          submitBtn.value = 'SOLICITAR INFORMACIÓN Y MUESTRAS GRATIS';
         } else {
-          submitBtn.textContent = 'SOLICITAR INFORMACIÓN DE CANAL';
+          submitBtn.textContent = 'SOLICITAR INFORMACIÓN Y MUESTRAS GRATIS';
         }
       }
 
